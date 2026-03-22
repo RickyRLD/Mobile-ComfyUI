@@ -48,8 +48,8 @@ WORKFLOW_1 = "workflows/Ricky_v4.json"
 WORKFLOW_2 = "workflows/PhotoRicky_v1.0.json"
 
 # KONFIGURACJA TELEGRAMA
-TELEGRAM_BOT_TOKEN = ""
-TELEGRAM_CHAT_ID = "8011392687"
+TELEGRAM_BOT_TOKEN = ""  # set in config.py
+TELEGRAM_CHAT_ID = ""    # set in config.py
 
 # --- INTERFEJS MOBILNY (HTML na telefon) ---
 HTML_TEMPLATE = """

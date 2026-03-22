@@ -15,8 +15,8 @@ SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 SERVER_DIR = SCRIPT_DIR
 
 # Domyślne wartości TELEGRAM (przed importem config)
-_TELEGRAM_TOKEN_DEFAULT = ""
-_TELEGRAM_CHAT_DEFAULT = "8011392687"
+_TELEGRAM_TOKEN_DEFAULT = ""  # set in config.py
+_TELEGRAM_CHAT_DEFAULT = ""   # set in config.py
 
 # Ścieżki bezwzględne - projekt w C:\AI\Cursor\Zdalne, ComfyUI w C:\AI\New_Comfy
 COMFY_DIR = r"C:\AI\New_Comfy"

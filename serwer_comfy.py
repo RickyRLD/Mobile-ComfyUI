@@ -56,8 +56,8 @@ except ImportError:
     IMAGE_DIR            = r"C:\AI\IMAGES\OlaPL"
     WORKFLOW_1           = "workflows/Ricky_v4.json"
     WORKFLOW_2           = "workflows/PhotoRicky_v1.0.json"
-    TELEGRAM_BOT_TOKEN   = ""
-    TELEGRAM_CHAT_ID     = "8011392687"
+    TELEGRAM_BOT_TOKEN   = ""  # set in config.py
+    TELEGRAM_CHAT_ID     = ""  # set in config.py
     MAX_IMAGE_SIZE       = 1500
     JPEG_QUALITY         = 90
     TELEGRAM_RETRY       = 3
