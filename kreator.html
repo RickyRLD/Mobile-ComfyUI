@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Kreator Workflow</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',sans-serif;background:#0d0d0f;color:#e0e0e0}
+.layout{display:grid;grid-template-columns:280px 1fr;min-height:100vh}
+.sidebar{background:#111113;border-right:1px solid #222;padding:20px;overflow-y:auto;max-height:100vh;position:sticky;top:0}
+.sidebar h2{font-size:13px;color:#555;text-transform:uppercase;letter-spacing:1px;margin-bottom:16px}
+.wf-item{background:#1a1a1d;border:1px solid #2a2a2e;border-radius:10px;padding:12px 14px;margin-bottom:8px;cursor:pointer;transition:border-color .2s}
+.wf-item:hover{border-color:#4CAF50}
+.wf-item.active{border-color:#4CAF50;background:#1a2a1a}
+.wf-name{font-weight:600;font-size:14px}
+.wf-file{font-size:11px;color:#555;margin-top:3px}
+.wf-tags{display:flex;gap:4px;margin-top:6px;flex-wrap:wrap}
+.tag{font-size:10px;padding:2px 6px;border-radius:10px;background:#252528;color:#888}
+.tag.style{background:#1a2a1a;color:#4CAF50}
+.tag.img2{background:#1a1a2a;color:#2196F3}
+.tag.custom{background:#2a1a1a;color:#ff9800}
+.btn-add{width:100%;padding:11px;background:#4CAF50;color:#000;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;margin-bottom:12px}
+.btn-add:hover{background:#66BB6A}
+.nav-links{margin-bottom:16px;display:flex;gap:8px;flex-wrap:wrap}
+.nav-link{padding:6px 12px;background:#252528;color:#aaa;border-radius:8px;font-size:12px;text-decoration:none}
+.nav-link:hover{background:#333;color:#fff}
+.main{padding:28px;overflow-y:auto}
+.main h1{font-size:22px;font-weight:700;margin-bottom:6px}
+.subtitle{color:#666;font-size:14px;margin-bottom:24px}
+.steps{display:flex;gap:8px;margin-bottom:24px}
+.step{flex:1;padding:9px 12px;background:#1a1a1d;border:1px solid #2a2a2e;border-radius:10px;font-size:13px;color:#555;text-align:center}
+.step.active{border-color:#4CAF50;color:#4CAF50;font-weight:600;background:#1a2a1a}
+.step.done{border-color:#333;color:#4CAF50}
+.panel{background:#161618;border:1px solid #2a2a2e;border-radius:14px;padding:22px;margin-bottom:14px}
+.panel h3{font-size:15px;font-weight:600;margin-bottom:14px;color:#fff}
+label{display:block;font-size:12px;color:#888;margin-bottom:4px;margin-top:12px}
+label:first-child{margin-top:0}
+input[type=text],select,input[type=file],input[type=number],textarea{width:100%;padding:10px 12px;background:#252528;color:#e0e0e0;border:1px solid #333;border-radius:8px;font-size:14px}
+textarea{resize:vertical;min-height:70px;font-family:monospace;font-size:12px}
+input[type=checkbox]{width:16px;height:16px;accent-color:#4CAF50;cursor:pointer;vertical-align:middle}
+.btn{padding:10px 18px;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;transition:opacity .15s}
+.btn:hover{opacity:.85}
+.btn-primary{background:#4CAF50;color:#000}
+.btn-blue{background:#2196F3;color:#fff}
+.btn-dark{background:#252528;color:#e0e0e0}
+.btn-red{background:#f44336;color:#fff}
+.btn-orange{background:#ff9800;color:#000}
+.btn-row{display:flex;gap:10px;margin-top:18px;flex-wrap:wrap;align-items:center}
+.node-grid{display:grid;gap:7px;max-height:520px;overflow-y:auto;padding-right:4px}
+.node-card{background:#1c1c1f;border:1px solid #2a2a2e;border-radius:10px;overflow:hidden}
+.nc-header{display:flex;align-items:center;gap:8px;padding:11px 13px;cursor:pointer;flex-wrap:wrap;user-select:none}
+.nc-header:hover{background:#222}
+.nc-title{font-weight:600;font-size:13px;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.nc-type{font-size:11px;color:#555;background:#252528;padding:2px 7px;border-radius:10px;flex-shrink:0}
+.nc-id{font-size:11px;color:#333;flex-shrink:0}
+.nc-badges{display:flex;gap:4px;flex-shrink:0;align-items:center}
+.nc-badge{font-size:10px;padding:2px 6px;border-radius:10px;font-weight:700}
+.ncb-mapped{background:#0d1a0d;color:#4CAF50;border:1px solid #1a3a1a}
+.ncb-special{background:#1a1000;color:#ff9800;border:1px solid #3a2000}
+.nc-chevron{font-size:12px;color:#444;flex-shrink:0;transition:transform .2s}
+.nc-chevron.open{transform:rotate(180deg)}
+.nc-preview{padding:6px 13px 10px;display:flex;gap:5px;flex-wrap:wrap}
+.ncp-tag{font-size:11px;padding:2px 7px;border-radius:6px;background:#1a1a1d;color:#666;border:1px solid #252528}
+.nc-fields{border-top:1px solid #222;padding:12px 13px;display:grid;gap:8px;background:#111}
+.field-row{background:#1c1c1f;border:1px solid #252528;border-radius:8px;padding:10px 12px}
+.field-header{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.field-name{font-size:12px;font-weight:600;color:#aaa;font-family:monospace;flex:1}
+.ftb{font-size:10px;padding:2px 7px;border-radius:10px;font-weight:600}
+.ftb-text{background:#252528;color:#888}
+.ftb-select{background:#1a2a1a;color:#4CAF50}
+.ftb-number{background:#1a1a2e;color:#2196F3}
+.ftb-bool{background:#2a1a0a;color:#ff9800}
+.field-input{width:100%;background:#111;border:1px solid #2a2a2e;border-radius:6px;color:#e0e0e0;font-size:12px;padding:7px 10px;font-family:monospace}
+textarea.field-input{resize:vertical;min-height:50px}
+.role-bar{display:flex;gap:5px;margin-top:8px;flex-wrap:wrap}
+.rchip{font-size:11px;padding:3px 10px;border-radius:20px;border:1px solid #2a2a2e;color:#555;cursor:pointer;transition:all .15s;user-select:none;background:#111}
+.rchip:hover{border-color:#666;color:#aaa}
+.sel-custom  {border-color:#555 !important;color:#aaa !important;background:#1a1a1d !important}
+.sel-prompt  {border-color:#00BCD4 !important;color:#00BCD4 !important;background:#001a1a !important}
+.sel-image_1 {border-color:#2196F3 !important;color:#2196F3 !important;background:#0a0d1a !important}
+.sel-image_2 {border-color:#64B5F6 !important;color:#64B5F6 !important;background:#0a0d1a !important}
+.sel-style   {border-color:#4CAF50 !important;color:#4CAF50 !important;background:#0d1a0d !important}
+.sel-seed    {border-color:#ff9800 !important;color:#ff9800 !important;background:#1a1000 !important}
+.sel-output  {border-color:#9C27B0 !important;color:#9C27B0 !important;background:#1a0d1a !important}
+.output-btn{padding:3px 10px;font-size:11px;border-radius:6px;border:1px solid #333;background:#1a1a1d;color:#555;cursor:pointer;transition:all .15s;white-space:nowrap}
+.output-btn.active{border-color:#9C27B0;color:#9C27B0;background:#1a0d1a}
+.mapping-row{background:#1c1c1f;border:1px solid #2a2a2e;border-radius:10px;padding:12px;margin-bottom:7px}
+.mr-head{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.role-badge{padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700}
+.rb-image_1,.rb-image_2{background:#0a0d1a;color:#2196F3;border:1px solid #1a2a3a}
+.rb-prompt{background:#001a1a;color:#00BCD4;border:1px solid #00363a}
+.rb-style{background:#0d1a0d;color:#4CAF50;border:1px solid #1a3a1a}
+.rb-seed{background:#1a1000;color:#ff9800;border:1px solid #3a2000}
+.rb-custom{background:#1a1a1d;color:#aaa;border:1px solid #333}
+.rb-output{background:#1a0d1a;color:#9C27B0;border:1px solid #3a1a3a}
+.mr-info{flex:1;font-size:13px}
+.mr-btns{display:flex;gap:4px}
+.mr-btn{padding:3px 8px;background:#222;border:none;color:#aaa;border-radius:5px;cursor:pointer;font-size:13px}
+.mr-btn.del{background:#3a1a1a;color:#f44;border:1px solid #5a1a1a}
+.empty-state{text-align:center;padding:40px;color:#555}
+.es-icon{font-size:48px;margin-bottom:12px}
+.alert{padding:11px 14px;border-radius:10px;margin-bottom:14px;font-size:14px}
+.alert-ok{background:#1a2a1a;border:1px solid #4CAF50;color:#4CAF50}
+.alert-err{background:#2a1a1a;border:1px solid #f44336;color:#f44336}
+.alert-info{background:#1a1a2a;border:1px solid #2196F3;color:#2196F3}
+.hidden{display:none!important}
+.search-bar{width:100%;padding:9px 12px;background:#1a1a1d;border:1px solid #2a2a2e;border-radius:8px;color:#e0e0e0;font-size:13px;margin-bottom:10px;outline:none}
+.search-bar:focus{border-color:#4CAF50}
+.tab-bar{display:flex;gap:6px;margin-bottom:12px}
+.tab-btn{padding:6px 14px;background:#1a1a1d;border:1px solid #2a2a2e;border-radius:8px;color:#555;font-size:12px;cursor:pointer}
+.tab-btn.active{border-color:#4CAF50;color:#4CAF50;background:#0d1a0d}
+</style>
+</head>
+<body>
+<div class="layout">
+<div class="sidebar">
+  <div class="nav-links">
+    <a class="nav-link" href="/panel" target="_blank">🖥 Panel</a>
+    <a class="nav-link" href="/" target="_blank">📱 Mobile</a>
+  </div>
+  <button class="btn-add" onclick="startNew()">+ Nowy Workflow</button>
+  <h2>Zapisane</h2>
+  <div id="wf-list"><div style="color:#555;font-size:13px">Ladowanie...</div></div>
+</div>
+
+<div class="main">
+  <div id="welcome-state">
+    <div class="empty-state">
+      <div class="es-icon">⚙️</div>
+      <div style="font-size:18px;font-weight:600;margin-bottom:8px">Kreator Workflow</div>
+      <div style="color:#666;font-size:14px">Wybierz workflow z listy lub dodaj nowy</div>
+    </div>
+  </div>
+
+  <div id="editor-state" class="hidden">
+    <h1 id="editor-title">Nowy Workflow</h1>
+    <div class="subtitle">Konfiguracja mapowania pól</div>
+    <div class="steps">
+      <div class="step active" id="step-1">1. Plik i nazwa</div>
+      <div class="step" id="step-2">2. Nody i kontrolki</div>
+      <div class="step" id="step-3">3. Zapisz</div>
+    </div>
+    <div id="alert-box" class="hidden"></div>
+
+    <div id="panel-step1" class="panel">
+      <h3>Podstawowe informacje</h3>
+      <label>Nazwa (widoczna na telefonie)</label>
+      <input type="text" id="wf-name" placeholder="np. Ricky v5">
+      <label>ID (bez spacji, unikalne)</label>
+      <input type="text" id="wf-id" placeholder="np. rickyv5">
+      <label>Plik JSON workflow (ComfyUI export)</label>
+      <input type="file" id="wf-file" accept=".json">
+      <div class="btn-row">
+        <button class="btn btn-primary" onclick="step1Next()">Dalej: Skanuj nody →</button>
+      </div>
+    </div>
+
+    <div id="panel-step2" class="hidden">
+      <div class="panel">
+        <h3>Nody workflow</h3>
+        <p style="font-size:13px;color:#666;margin-bottom:14px">
+          Kliknij node <b style="color:#aaa">▼</b> żeby rozwinąć pola i przypisać role.<br>
+          <span style="color:#ff9800">⚡ Auto-wykryj</span> automatycznie mapuje typowe nody (LoadImage, SaveImage, CLIPText, Seed).
+        </p>
+        <div class="btn-row" style="margin-top:0;margin-bottom:14px">
+          <button class="btn btn-orange" onclick="autoDetect()" style="font-size:12px;padding:7px 18px">⚡ Auto-wykryj mapowania</button>
+          <button class="btn btn-dark" onclick="clearMappings()" style="font-size:12px;padding:7px 14px">🗑 Wyczyść</button>
+        </div>
+        <div class="tab-bar">
+          <button class="tab-btn active" id="tab-all"     onclick="setFilter('all')">Wszystkie</button>
+          <button class="tab-btn"        id="tab-mapped"  onclick="setFilter('mapped')">✅ Zmapowane</button>
+          <button class="tab-btn"        id="tab-special" onclick="setFilter('special')">⭐ Specjalne</button>
+        </div>
+        <input class="search-bar" id="node-search" placeholder="🔍 Szukaj po nazwie, typie lub ID..." oninput="renderGrid()">
+        <div id="node-grid" class="node-grid"></div>
+      </div>
+
+      <div class="panel">
+        <h3>Skonfigurowane mapowania <span id="map-count" style="font-size:13px;color:#555;font-weight:400">(0)</span></h3>
+        <div id="mappings-list"><div style="color:#555;font-size:13px;padding:8px 0">Brak mapowań.</div></div>
+        <div class="btn-row">
+          <button class="btn btn-dark" onclick="showStep(1)">← Wstecz</button>
+          <button class="btn btn-primary" onclick="showStep(3)">Dalej: Podgląd →</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="panel-step3" class="hidden">
+      <div class="panel">
+        <h3>Podsumowanie i zapis</h3>
+        <div id="summary"></div>
+        <div class="btn-row">
+          <button class="btn btn-dark" onclick="showStep(2)">← Wstecz</button>
+          <button class="btn btn-primary" onclick="saveWorkflow()">💾 Zapisz workflow</button>
+          <button class="btn btn-red" id="btn-delete" style="display:none;margin-left:auto" onclick="deleteWorkflow()">🗑 Usuń</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════════════════
+var allNodes    = [];
+var mappings    = [];
+var currentWfId = null;
+var expandedNodes = {};
+var nodeFilter  = 'all';
+var nodeInfoCache = {};   // {nodeType: {fieldName: {type,options,...}}}
+
+var SPECIAL = ['RandomOrManual3LevelChoicesRelaxed','LoadImage','BatchImageLoader',
+  'CLIPTextEncode','KSampler','RandomNoise','SamplerCustomAdvanced',
+  'SaveImage','PreviewImage','StringConcatenate','ShowText|pysssss','polymath_chat'];
+
+var ROLE_LABELS = {
+  image_1:'🖼 Zdj.1', image_2:'🖼 Zdj.2', prompt:'✏️ Prompt',
+  style:'🎨 Styl', seed:'🎲 Seed', output:'💾 Output', custom:'🔧 Custom'
+};
+
+// ═══════════════════════════════════════════════════════════
+// ESCAPE HELPERS — critical to avoid JS injection in innerHTML
+// ═══════════════════════════════════════════════════════════
+function H(s) { // HTML escape
+  return String(s==null?'':s)
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+}
+function A(s) { // attribute escape (for data-* attrs inside double-quoted HTML attrs)
+  return String(s==null?'':s)
+    .replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/'/g,'&#39;')
+    .replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+// ═══════════════════════════════════════════════════════════
+// SIDEBAR / LOAD
+// ═══════════════════════════════════════════════════════════
+async function loadWorkflows() {
+  try {
+    var list = await fetch('/api/workflows').then(function(r){return r.json();});
+    var el   = document.getElementById('wf-list');
+    if (!list.length) { el.innerHTML='<div style="color:#555;font-size:13px">Brak zapisanych workflow</div>'; return; }
+    el.innerHTML = list.map(function(w) {
+      var tags = '';
+      if (w.has_style)  tags += '<span class="tag style">styl</span>';
+      if (w.has_image2) tags += '<span class="tag img2">2 zdjęcia</span>';
+      if (w.custom_inputs&&w.custom_inputs.length) tags += '<span class="tag custom">custom×'+w.custom_inputs.length+'</span>';
+      return '<div class="wf-item" id="wfi-'+H(w.id)+'" data-wid="'+A(w.id)+'" onclick="editWorkflow(this.getAttribute(\'data-wid\'))">' +
+        '<div class="wf-name">'+H(w.name)+'</div>' +
+        '<div class="wf-file">'+H(w.file)+'</div>' +
+        '<div class="wf-tags">'+tags+'</div>' +
+        '</div>';
+    }).join('');
+  } catch(e) { console.error(e); }
+}
+
+function startNew() {
+  currentWfId=null; mappings=[]; allNodes=[]; expandedNodes={};
+  document.getElementById('wf-name').value='';
+  document.getElementById('wf-id').value='';
+  document.getElementById('wf-file').value='';
+  document.querySelectorAll('.wf-item').forEach(function(e){e.classList.remove('active');});
+  document.getElementById('welcome-state').classList.add('hidden');
+  document.getElementById('editor-state').classList.remove('hidden');
+  document.getElementById('editor-title').textContent='Nowy Workflow';
+  document.getElementById('btn-delete').style.display='none';
+  showStep(1);
+}
+
+async function editWorkflow(wid) {
+  document.querySelectorAll('.wf-item').forEach(function(e){e.classList.remove('active');});
+  var el=document.getElementById('wfi-'+wid);
+  if(el) el.classList.add('active');
+  currentWfId=wid; expandedNodes={};
+  try {
+    var cfg    = await fetch('/api/workflows/'+encodeURIComponent(wid)+'/config').then(function(r){return r.json();});
+    var wfList = await fetch('/api/workflows').then(function(r){return r.json();});
+    var wf     = wfList.find(function(w){return w.id===wid;});
+    if (!wf) return;
+    document.getElementById('wf-name').value=wf.name;
+    document.getElementById('wf-id').value=wid;
+    document.getElementById('welcome-state').classList.add('hidden');
+    document.getElementById('editor-state').classList.remove('hidden');
+    document.getElementById('editor-title').textContent=wf.name;
+    document.getElementById('btn-delete').style.display='inline-block';
+    mappings=(cfg&&cfg.mappings)?cfg.mappings:[];
+    var nr=await fetch('/api/workflows/'+encodeURIComponent(wid)+'/nodes').then(function(r){return r.json();}).catch(function(){return null;});
+    allNodes=(nr&&nr.nodes)?nr.nodes:[];
+    renderMappings();
+    if(allNodes.length) showStep(2); else { renderSummary(); showStep(3); }
+  } catch(e){ console.error(e); showAlert('Błąd ładowania: '+e,'err'); }
+}
+
+// ═══════════════════════════════════════════════════════════
+// STEPS
+// ═══════════════════════════════════════════════════════════
+function showStep(n) {
+  [1,2,3].forEach(function(i){
+    document.getElementById('panel-step'+i).classList.toggle('hidden',i!==n);
+    var s=document.getElementById('step-'+i);
+    s.classList.toggle('active',i===n);
+    s.classList.toggle('done',i<n);
+  });
+  if(n===2){ renderGrid(); renderMappings(); }
+  if(n===3) renderSummary();
+}
+
+async function step1Next() {
+  var name=document.getElementById('wf-name').value.trim();
+  var wid =document.getElementById('wf-id').value.trim();
+  var file=document.getElementById('wf-file').files[0];
+  if(!name){showAlert('Podaj nazwę workflow','err');return;}
+  if(!file){showAlert('Wybierz plik JSON','err');return;}
+  if(!wid){wid=name.toLowerCase().replace(/\s+/g,'_').replace(/[^a-z0-9_]/g,''); document.getElementById('wf-id').value=wid;}
+  showAlert('Skanowanie nodów...','info');
+  var fd=new FormData(); fd.append('file',file);
+  try{
+    var data=await fetch('/api/workflows/upload_json',{method:'POST',body:fd}).then(function(r){return r.json();});
+    if(data.status!=='ok'){showAlert('Błąd: '+data.message,'err');return;}
+    allNodes=data.nodes; expandedNodes={}; hideAlert(); showStep(2);
+  }catch(e){showAlert('Błąd połączenia: '+e,'err');}
+}
+
+// ═══════════════════════════════════════════════════════════
+// AUTO-DETECT
+// ═══════════════════════════════════════════════════════════
+function autoDetect() {
+  if(!allNodes.length) return;
+  var det=[]; var imgCount=0;
+  allNodes.forEach(function(n){
+    var t=n.type;
+    if(t==='LoadImage'||t==='BatchImageLoader'){
+      imgCount++;
+      var f='image';
+      n.inputs.forEach(function(i){if(i.name==='image'||i.name==='path'||i.name==='image_dir')f=i.name;});
+      det.push({role:imgCount===1?'image_1':'image_2',node_id:n.id,node_title:n.title||t,node_type:t,
+                field:f,label:imgCount===1?'Zdjęcie główne':'Zdjęcie drugie'});
+    } else if(t==='RandomNoise'||t==='KSampler'||t==='SamplerCustomAdvanced'){
+      var sf=null;
+      n.inputs.forEach(function(i){if(!sf&&(i.name==='seed'||i.name==='noise_seed'))sf=i.name;});
+      if(sf) det.push({role:'seed',node_id:n.id,node_title:n.title||t,node_type:t,field:sf});
+    } else if(t==='RandomOrManual3LevelChoicesRelaxed'){
+      det.push({role:'style',node_id:n.id,node_title:n.title||t,node_type:t,
+                field:'mode',mode_field:'mode',main_field:'main_style',sub_field:'sub_style',subsub_field:'subsub_style'});
+    } else if(t==='CLIPTextEncode'||t==='StringConcatenate'){
+      var tf=null;
+      n.inputs.forEach(function(i){
+        if(!tf&&(i.name==='text'||i.name==='suffix'||i.name==='string_a'||i.name==='string_b'))tf=i;
+      });
+      if(tf) det.push({role:'prompt',node_id:n.id,node_title:n.title||t,node_type:t,
+                        field:tf.name,_suffix_default:String(tf.default||''),simple_editable:true,simple_label:n.title||t});
+    } else if(t==='SaveImage'){
+      det.push({role:'output',node_id:n.id,node_title:n.title||t,node_type:t});
+    }
+  });
+  if(!det.length){showAlert('Nie wykryto standardowych nodów','err');return;}
+  mappings=det; renderGrid(); renderMappings();
+  showAlert('Wykryto '+det.length+' mapowań — sprawdź i popraw jeśli potrzeba','ok');
+}
+
+function clearMappings(){mappings=[];renderGrid();renderMappings();}
+
+// ═══════════════════════════════════════════════════════════
+// NODE GRID
+// ═══════════════════════════════════════════════════════════
+function setFilter(f){
+  nodeFilter=f;
+  ['all','mapped','special'].forEach(function(t){document.getElementById('tab-'+t).classList.toggle('active',t===f);});
+  renderGrid();
+}
+
+function getNodeMaps(nid){return mappings.filter(function(m){return m.node_id===nid;});}
+function getFieldRole(nid,fname){var m=mappings.find(function(m){return m.node_id===nid&&m.field===fname;});return m?m.role:null;}
+
+function renderGrid(){
+  var q=(document.getElementById('node-search').value||'').toLowerCase();
+  var nodes=allNodes.filter(function(n){
+    if(q&&!(n.label||'').toLowerCase().includes(q)&&!n.id.toLowerCase().includes(q)&&!(n.type||'').toLowerCase().includes(q))return false;
+    if(nodeFilter==='mapped')return getNodeMaps(n.id).length>0;
+    if(nodeFilter==='special')return SPECIAL.indexOf(n.type)>=0;
+    return true;
+  });
+  var el=document.getElementById('node-grid');
+  if(!nodes.length){el.innerHTML='<div style="color:#555;font-size:13px;padding:20px;text-align:center">Brak nodów</div>';return;}
+  el.innerHTML=nodes.map(function(n){return renderNodeCard(n);}).join('');
+}
+
+function renderNodeCard(n){
+  var nm=getNodeMaps(n.id);
+  var isExp=!!expandedNodes[n.id];
+  var isOut=!!mappings.find(function(m){return m.node_id===n.id&&m.role==='output';});
+  var badges=(nm.length?'<span class="nc-badge ncb-mapped">✅ '+nm.length+'</span>':'') +
+             (SPECIAL.indexOf(n.type)>=0?'<span class="nc-badge ncb-special">⭐</span>':'');
+  var outBtnCls='output-btn'+(isOut?' active':'');
+  var outBtn='<button class="'+outBtnCls+'" data-nid="'+A(n.id)+'" data-ntitle="'+A(n.title||n.type)+'" onclick="toggleOut(this)">💾 Output</button>';
+
+  var preview='';
+  if(!isExp&&n.inputs.length){
+    preview='<div class="nc-preview">'+
+      n.inputs.slice(0,7).map(function(i){return '<span class="ncp-tag">'+H(i.name)+'</span>';}).join('')+
+      (n.inputs.length>7?'<span class="ncp-tag">+'+(n.inputs.length-7)+'…</span>':'')+
+    '</div>';
+  }
+
+  var fields='';
+  if(isExp){
+    if(n.inputs.length){
+      fields='<div class="nc-fields">'+n.inputs.map(function(inp){return renderFieldRow(n,inp);}).join('')+'</div>';
+    } else {
+      fields='<div class="nc-fields" style="color:#555;font-size:12px">Brak edytowalnych pól (wszystkie to połączenia)</div>';
+    }
+  }
+
+  return '<div class="node-card" id="nc-'+H(n.id)+'">'+
+    '<div class="nc-header" data-nid="'+A(n.id)+'" onclick="toggleNode(this.getAttribute(\'data-nid\'))">'+
+      '<span class="nc-title">'+H(n.title||'(brak tytułu)')+'</span>'+
+      '<span class="nc-type">'+H(n.type)+'</span>'+
+      '<span class="nc-id">#'+H(n.id)+'</span>'+
+      '<div class="nc-badges">'+badges+outBtn+'</div>'+
+      '<span class="nc-chevron'+(isExp?' open':'')+'">▼</span>'+
+    '</div>'+
+    preview+fields+
+  '</div>';
+}
+
+async function toggleNode(nid){
+  if(expandedNodes[nid]){ delete expandedNodes[nid]; }
+  else {
+    expandedNodes[nid]=true;
+    // Pobierz info o polach z ComfyUI jeśli jeszcze nie mamy
+    var n=allNodes.find(function(n){return n.id===nid;});
+    if(n && n.type && !nodeInfoCache[n.type]){
+      try{
+        var r=await fetch('/api/node_info/'+encodeURIComponent(n.type)).then(function(r){return r.json();});
+        if(r.status==='ok') nodeInfoCache[n.type]=r.fields||{};
+        else nodeInfoCache[n.type]={};
+      }catch(e){ nodeInfoCache[n.type]={}; }
+      // Wzbogać pola noda o typy select z ComfyUI
+      enrichNodeInputs(n);
+    }
+  }
+  var n=allNodes.find(function(n){return n.id===nid;});
+  if(!n) return;
+  var el=document.getElementById('nc-'+nid);
+  if(el) el.outerHTML=renderNodeCard(n);
+}
+
+function enrichNodeInputs(n){
+  var ci=nodeInfoCache[n.type]||{};
+  n.inputs.forEach(function(inp){
+    var fi=ci[inp.name];
+    if(!fi) return;
+    if(fi.type==='select'&&fi.options&&fi.options.length){
+      inp.type='select';
+      inp.options=fi.options;
+    } else if(fi.type==='number'&&inp.type==='number'){
+      if(fi.min!=null) inp.min=fi.min;
+      if(fi.max!=null) inp.max=fi.max;
+      if(fi.step!=null) inp.step=fi.step;
+    } else if(fi.type==='text'&&fi.multiline){
+      inp.multiline=true;
+    }
+  });
+}
+
+function toggleOut(btn){
+  var nid=btn.getAttribute('data-nid');
+  var ntitle=btn.getAttribute('data-ntitle');
+  var idx=mappings.findIndex(function(m){return m.node_id===nid&&m.role==='output';});
+  if(idx>=0) mappings.splice(idx,1);
+  else mappings.push({role:'output',node_id:nid,node_title:ntitle,node_type:''});
+  var n=allNodes.find(function(n){return n.id===nid;});
+  if(n){var el=document.getElementById('nc-'+nid); if(el) el.outerHTML=renderNodeCard(n);}
+  renderMappings();
+}
+
+// ─────────────────────────────────────────────────────────
+// Field row — ALL data passed via data-* attributes, NO inline JS with user values
+// ─────────────────────────────────────────────────────────
+function renderFieldRow(node, inp){
+  var fkey  = node.id+'::'+inp.name;
+  var curRole = getFieldRole(node.id, inp.name);
+  var val   = inp.default!=null ? inp.default : '';
+  var valStr= String(val);
+
+  // Input widget
+  var ctrl='';
+  if(inp.type==='bool'){
+    ctrl='<label style="display:flex;align-items:center;gap:8px;margin:0">'+
+      '<input type="checkbox" class="field-input" data-fkey="'+A(fkey)+'" '+(val?'checked':'')+' onchange="onFldChange(this)">'+
+      '<span style="font-size:12px;color:#aaa">'+(val?'true':'false')+'</span></label>';
+  } else if(inp.type==='select'&&inp.options&&inp.options.length){
+    // Lista wyboru pobrana z ComfyUI object_info
+    var opts=inp.options.map(function(o){
+      return '<option value="'+A(String(o))+'"'+(String(o)===valStr?' selected':'')+'>'+H(String(o))+'</option>';
+    }).join('');
+    ctrl='<select class="field-input" data-fkey="'+A(fkey)+'" onchange="onFldChange(this)">'+opts+'</select>'+
+         '<div style="font-size:10px;color:#4CAF50;margin-top:3px">✓ Lista '+inp.options.length+' opcji z ComfyUI</div>';
+  } else if(inp.type==='number'){
+    var step=inp.step!=null?inp.step:(typeof val==='number'&&val%1!==0?'0.01':'1');
+    var minMax=(inp.min!=null?' min="'+inp.min+'"':'')+(inp.max!=null?' max="'+inp.max+'"':'');
+    ctrl='<input type="number" class="field-input" data-fkey="'+A(fkey)+'" value="'+A(valStr)+'" step="'+step+'"'+minMax+' onchange="onFldChange(this)">';
+    if(inp.min!=null||inp.max!=null) ctrl+='<div style="font-size:10px;color:#555;margin-top:2px">zakres: '+(inp.min!=null?inp.min:'?')+' – '+(inp.max!=null?inp.max:'?')+'</div>';
+  } else if(inp.multiline||valStr.length>80){
+    ctrl='<textarea class="field-input" data-fkey="'+A(fkey)+'" rows="3" onchange="onFldChange(this)">'+H(valStr)+'</textarea>';
+  } else {
+    ctrl='<input type="text" class="field-input" data-fkey="'+A(fkey)+'" value="'+A(valStr)+'" onchange="onFldChange(this)">';
+  }
+
+  // Role chips — ALL node/field data in data-* attrs
+  var chipRoles=[
+    {id:'custom',  lbl:'Custom'},
+    {id:'prompt',  lbl:'✏️ Prompt'},
+    {id:'image_1', lbl:'🖼 Zdj.1'},
+    {id:'image_2', lbl:'🖼 Zdj.2'},
+    {id:'style',   lbl:'🎨 Styl'},
+    {id:'seed',    lbl:'🎲 Seed'},
+  ];
+  var chips=chipRoles.map(function(r){
+    var active=curRole===r.id?' sel-'+r.id:'';
+    return '<span class="rchip'+active+'" '+
+      'data-nid="'+A(node.id)+'" '+
+      'data-fname="'+A(inp.name)+'" '+
+      'data-ftype="'+A(inp.type)+'" '+
+      (inp.options?'data-options="'+A(JSON.stringify(inp.options))+'" ':'')+
+      'data-ntitle="'+A(node.title||node.type)+'" '+
+      'data-ntype="'+A(node.type)+'" '+
+      'data-role="'+A(r.id)+'" '+
+      'onclick="onChipClick(this)">'+r.lbl+'</span>';
+  }).join('');
+
+  return '<div class="field-row" id="fr-'+A(fkey)+'">'+
+    '<div class="field-header">'+
+      '<span class="field-name">'+H(inp.name)+'</span>'+
+      '<span class="ftb ftb-'+H(inp.type)+'">'+(inp.type==='select'?'📋 select':H(inp.type))+'</span>'+
+    '</div>'+
+    ctrl+
+    '<div class="role-bar">'+chips+'</div>'+
+  '</div>';
+}
+
+function onFldChange(el){
+  var fkey=el.getAttribute('data-fkey');
+  var parts=fkey.split('::'); var nid=parts[0]; var fname=parts.slice(1).join('::');
+  var n=allNodes.find(function(n){return n.id===nid;}); if(!n)return;
+  var inp=n.inputs.find(function(i){return i.name===fname;}); if(!inp)return;
+  if(el.type==='checkbox') inp.default=el.checked;
+  else if(inp.type==='number') inp.default=parseFloat(el.value)||0;
+  else inp.default=el.value;
+  var m=mappings.find(function(m){return m.node_id===nid&&m.field===fname;});
+  if(m){m.default=inp.default; m._suffix_default=String(inp.default);}
+}
+
+function onChipClick(chip){
+  var nid    = chip.getAttribute('data-nid');
+  var fname  = chip.getAttribute('data-fname');
+  var ftype  = chip.getAttribute('data-ftype');
+  var ntitle = chip.getAttribute('data-ntitle');
+  var ntype  = chip.getAttribute('data-ntype');
+  var role   = chip.getAttribute('data-role');
+
+  // Remove old mapping for this field
+  var idx=mappings.findIndex(function(m){return m.node_id===nid&&m.field===fname;});
+  if(idx>=0) mappings.splice(idx,1);
+
+  // Get current default
+  var n=allNodes.find(function(n){return n.id===nid;})||{};
+  var inp=(n.inputs||[]).find(function(i){return i.name===fname;})||{};
+  var def=inp.default!=null?inp.default:'';
+
+  // Custom też jest rolą — zapisuje pole z edytowalną wartością domyślną
+  var m={role:role,node_id:nid,node_title:ntitle,node_type:ntype,field:fname};
+  if(role==='prompt'){
+    m._suffix_default=String(def); m.simple_editable=true; m.simple_label=ntitle+' / '+fname;
+  } else if(role==='style'){
+    m.mode_field='mode'; m.main_field='main_style'; m.sub_field='sub_style'; m.subsub_field='subsub_style';
+  } else if(role==='image_1'){
+    m.label='Zdjęcie główne';
+  } else if(role==='image_2'){
+    m.label='Zdjęcie drugie';
+  } else if(role==='custom'){
+    m.label=ntitle+' / '+fname;
+    m.form_key='custom_'+nid+'_'+fname;
+    m.ctrl_type=ftype==='select'?'select':(ftype==='number'?'number':(ftype==='bool'?'bool':'text'));
+    m.default=def;
+    // Zapisz opcje dla select
+    if(ftype==='select'){
+      try{
+        var optRaw=chip.getAttribute('data-options');
+        if(optRaw) m.options=JSON.parse(optRaw);
+      }catch(e){}
+    }
+  }
+  mappings.push(m);
+
+  // Update chips in this field row only (fast, no full rebuild)
+  var fkey=nid+'::'+fname;
+  var fr=document.getElementById('fr-'+fkey);
+  if(fr){
+    fr.querySelectorAll('.rchip').forEach(function(c){
+      var r=c.getAttribute('data-role');
+      c.className='rchip'+(r===role?' sel-'+r:'');
+    });
+  }
+  renderMappings();
+}
+
+// ═══════════════════════════════════════════════════════════
+// MAPPINGS LIST
+// ═══════════════════════════════════════════════════════════
+function renderMappings(){
+  var el=document.getElementById('mappings-list');
+  document.getElementById('map-count').textContent='('+mappings.length+')';
+  if(!mappings.length){
+    el.innerHTML='<div style="color:#555;font-size:13px;padding:8px 0">Brak mapowań. Rozwiń nody i kliknij rolę, lub użyj ⚡ Auto-wykryj.</div>';
+    return;
+  }
+  el.innerHTML=mappings.map(function(m,i){
+    var details=m.label?' – '+H(m.label):(m.field?' ('+H(m.field)+')':'');
+    var def=m._suffix_default?'<div style="font-size:11px;color:#555;margin-top:4px">Domyślnie: '+H(String(m._suffix_default).slice(0,50))+(String(m._suffix_default).length>50?'…':'')+'</div>':'';
+    return '<div class="mapping-row">'+
+      '<div class="mr-head">'+
+        '<span class="role-badge rb-'+(m.role||'custom')+'">'+(ROLE_LABELS[m.role]||m.role)+'</span>'+
+        '<span class="mr-info">'+H(m.node_title||m.node_id)+details+'</span>'+
+        '<div class="mr-btns">'+
+          (i>0?'<button class="mr-btn" data-idx="'+i+'" data-dir="-1" onclick="moveMap(this)">↑</button>':'')+
+          (i<mappings.length-1?'<button class="mr-btn" data-idx="'+i+'" data-dir="1" onclick="moveMap(this)">↓</button>':'')+
+          '<button class="mr-btn del" data-idx="'+i+'" onclick="removeMap(this)">✕</button>'+
+        '</div>'+
+      '</div>'+def+
+    '</div>';
+  }).join('');
+}
+
+function moveMap(btn){
+  var i=parseInt(btn.getAttribute('data-idx')); var dir=parseInt(btn.getAttribute('data-dir'));
+  var j=i+dir; if(j<0||j>=mappings.length)return;
+  var t=mappings[i]; mappings[i]=mappings[j]; mappings[j]=t; renderMappings();
+}
+
+function removeMap(btn){
+  var i=parseInt(btn.getAttribute('data-idx'));
+  var m=mappings[i]; mappings.splice(i,1);
+  // Reset chips for this field
+  if(m&&m.node_id&&m.field){
+    var fkey=m.node_id+'::'+m.field;
+    var fr=document.getElementById('fr-'+fkey);
+    if(fr) fr.querySelectorAll('.rchip').forEach(function(c){c.className='rchip';});
+  }
+  renderMappings();
+}
+
+// ═══════════════════════════════════════════════════════════
+// SUMMARY & SAVE
+// ═══════════════════════════════════════════════════════════
+function renderSummary(){
+  var name=document.getElementById('wf-name').value;
+  var wid =document.getElementById('wf-id').value;
+  var rows=mappings.length?mappings.map(function(m){
+    return '<div style="padding:7px 0;border-bottom:1px solid #1a1a1d;font-size:13px">'+
+      '<b>'+(ROLE_LABELS[m.role]||m.role)+'</b> → '+H(m.node_title||m.node_id)+(m.field?' ('+H(m.field)+')':'')+'</div>';
+  }).join(''):'<div style="color:#555">Brak mapowań</div>';
+  document.getElementById('summary').innerHTML=
+    '<div style="margin-bottom:14px"><div style="font-size:19px;font-weight:700">'+H(name||'—')+'</div>'+
+    '<div style="color:#555;font-size:13px;margin-top:2px">ID: '+H(wid)+'</div></div>'+rows;
+}
+
+async function saveWorkflow(){
+  var name=document.getElementById('wf-name').value.trim();
+  var wid =document.getElementById('wf-id').value.trim()||currentWfId;
+  var file=document.getElementById('wf-file').files[0];
+  if(!name){showAlert('Podaj nazwę','err');return;}
+  if(!wid) {showAlert('Brak ID workflow','err');return;}
+  if(!file&&!currentWfId){showAlert('Wybierz plik JSON','err');return;}
+  var outIds=mappings.filter(function(m){return m.role==='output';}).map(function(m){return m.node_id;});
+  var fname=file?file.name:'';
+  if(!fname&&currentWfId){
+    try{var ex=await fetch('/api/workflows').then(function(r){return r.json();}); var wf=ex.find(function(w){return w.id===currentWfId;}); if(wf)fname=wf.file;}catch(e){}
+  }
+  try{
+    var data=await fetch('/api/workflows/save',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id:wid,name:name,file:fname,mappings:mappings,output_node_ids:outIds})}).then(function(r){return r.json();});
+    if(data.status==='ok'){showAlert('Workflow zapisany!','ok');loadWorkflows();}
+    else showAlert('Błąd: '+data.message,'err');
+  }catch(e){showAlert('Błąd połączenia: '+e,'err');}
+}
+
+async function deleteWorkflow(){
+  if(!currentWfId||!confirm('Na pewno usunąć?'))return;
+  await fetch('/api/workflows/'+encodeURIComponent(currentWfId),{method:'DELETE'});
+  document.getElementById('editor-state').classList.add('hidden');
+  document.getElementById('welcome-state').classList.remove('hidden');
+  loadWorkflows();
+}
+
+// ═══════════════════════════════════════════════════════════
+// ALERTS
+// ═══════════════════════════════════════════════════════════
+function showAlert(msg,type){
+  var el=document.getElementById('alert-box');
+  el.textContent=msg; el.className='alert alert-'+type; el.classList.remove('hidden');
+  if(type==='ok') setTimeout(function(){el.classList.add('hidden');},4000);
+}
+function hideAlert(){document.getElementById('alert-box').classList.add('hidden');}
+
+document.getElementById('wf-name').addEventListener('input',function(){
+  if(!currentWfId) document.getElementById('wf-id').value=this.value.toLowerCase().replace(/\s+/g,'_').replace(/[^a-z0-9_]/g,'');
+});
+
+loadWorkflows();
+</script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+# === CREDENTIALS & SECRETS ===
+config.py
+*.pem
+*.key
+
+# === USER DATA ===
+users.json
+trusted_devices.json
+push_subs.json
+settings.json
+
+# === GENERATION HISTORY (personal data) ===
+gen_history.json
+gen_history_OlaPL.json
+gen_history_admin.json
+gen_count_today.json
+
+# === RUNTIME / LOGS ===
+*.log
+*.log.*
+local_ip.txt
+__pycache__/
+*.pyc
+*.pyo
+
+# === IMAGES (personal photos) ===
+images/
+
+# === INSTALLER (binary) ===
+Instalator/
+Instalator.zip
+mkcert.exe

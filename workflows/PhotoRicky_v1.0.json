@@ -1,0 +1,563 @@
+{
+  "60": {
+    "inputs": {
+      "filename_prefix": "reActor",
+      "images": [
+        "70:64",
+        0
+      ]
+    },
+    "class_type": "SaveImage",
+    "_meta": {
+      "title": "Save - reActor"
+    }
+  },
+  "74": {
+    "inputs": {
+      "filename_prefix": "ComfyUI",
+      "images": [
+        "75:64",
+        0
+      ]
+    },
+    "class_type": "SaveImage",
+    "_meta": {
+      "title": "Save"
+    }
+  },
+  "78": {
+    "inputs": {
+      "balance": 0.5,
+      "debug": false,
+      "conditioning": [
+        "9:422:351:244",
+        0
+      ]
+    },
+    "class_type": "Flux2KleinTextRefBalance",
+    "_meta": {
+      "title": "FLUX.2 Klein Text/Ref Balance"
+    }
+  },
+  "79": {
+    "inputs": {
+      "magnitude": 2.5,
+      "contrast": -0.5,
+      "normalize_strength": 0,
+      "skip_bos": true,
+      "debug": false,
+      "conditioning": [
+        "80",
+        0
+      ]
+    },
+    "class_type": "Flux2KleinTextEnhancer",
+    "_meta": {
+      "title": "FLUX.2 Klein Text Enhancer"
+    }
+  },
+  "80": {
+    "inputs": {
+      "strength": 3,
+      "blend_with_noise": 0,
+      "channel_mask_start": 0,
+      "channel_mask_end": 128,
+      "spatial_fade": "none",
+      "spatial_fade_strength": 0.5,
+      "debug": false,
+      "conditioning": [
+        "9:422:351:244",
+        0
+      ]
+    },
+    "class_type": "Flux2KleinRefLatentController",
+    "_meta": {
+      "title": "FLUX.2 Klein Ref Latent Controller"
+    }
+  },
+  "83": {
+    "inputs": {
+      "eta": 0.7,
+      "sampler_name": "multistep/res_2m",
+      "scheduler": "beta57",
+      "steps": 6,
+      "steps_to_run": -1,
+      "denoise": 0.97,
+      "cfg": 1,
+      "seed": 1056512174846509,
+      "sampler_mode": "standard",
+      "bongmath": true,
+      "model": [
+        "86",
+        0
+      ],
+      "positive": [
+        "9:422:351:244",
+        0
+      ],
+      "negative": [
+        "9:422:351:245",
+        0
+      ],
+      "latent_image": [
+        "9:422:351:238",
+        0
+      ],
+      "sigmas": [
+        "9:225:230",
+        0
+      ],
+      "options": [
+        "85",
+        0
+      ]
+    },
+    "class_type": "ClownsharKSampler_Beta",
+    "_meta": {
+      "title": "ClownsharKSampler"
+    }
+  },
+  "85": {
+    "inputs": {
+      "noise_type_sde": "gaussian",
+      "noise_type_sde_substep": "gaussian",
+      "noise_mode_sde": "hard",
+      "noise_mode_sde_substep": "hard",
+      "eta": 0.7,
+      "eta_substep": 0.5,
+      "seed": 804484766488327
+    },
+    "class_type": "ClownOptions_SDE_Beta",
+    "_meta": {
+      "title": "ClownOptions SDE"
+    }
+  },
+  "86": {
+    "inputs": {
+      "unet_name": "Flux-2-Klein-9B-KV-Q4_K_M.gguf"
+    },
+    "class_type": "UnetLoaderGGUF",
+    "_meta": {
+      "title": "Unet Loader (GGUF)"
+    }
+  },
+  "87": {
+    "inputs": {
+      "clip_name": "qwen_3_8b_fp8mixed.safetensors",
+      "type": "flux2",
+      "device": "default"
+    },
+    "class_type": "CLIPLoader",
+    "_meta": {
+      "title": "Load CLIP"
+    }
+  },
+  "88": {
+    "inputs": {
+      "vae_name": "flux2-vae.safetensors"
+    },
+    "class_type": "VAELoader",
+    "_meta": {
+      "title": "Load VAE"
+    }
+  },
+  "13:17": {
+    "inputs": {
+      "aspect_ratio": "original",
+      "proportional_width": 1,
+      "proportional_height": 1,
+      "fit": "letterbox",
+      "method": "lanczos",
+      "round_to_multiple": "8",
+      "scale_to_side": "longest",
+      "scale_to_length": 1276,
+      "background_color": "#000000"
+    },
+    "class_type": "LayerUtility: ImageScaleByAspectRatio V2",
+    "_meta": {
+      "title": "LayerUtility: ImageScaleByAspectRatio V2"
+    }
+  },
+  "75:43": {
+    "inputs": {
+      "model_name": "RealESRGAN_x2.pth"
+    },
+    "class_type": "UpscaleModelLoader",
+    "_meta": {
+      "title": "Load Upscale Model"
+    }
+  },
+  "75:63": {
+    "inputs": {
+      "model_name": "1x-ITF-SkinDiffDetail-Lite-v1.pth"
+    },
+    "class_type": "UpscaleModelLoader",
+    "_meta": {
+      "title": "Load Upscale Model"
+    }
+  },
+  "70:43": {
+    "inputs": {
+      "model_name": "RealESRGAN_x2.pth"
+    },
+    "class_type": "UpscaleModelLoader",
+    "_meta": {
+      "title": "Load Upscale Model"
+    }
+  },
+  "70:63": {
+    "inputs": {
+      "model_name": "1x-ITF-SkinDiffDetail-Lite-v1.pth"
+    },
+    "class_type": "UpscaleModelLoader",
+    "_meta": {
+      "title": "Load Upscale Model"
+    }
+  },
+  "9:225:230": {
+    "inputs": {
+      "steps": 8,
+      "width": 912,
+      "height": 1584
+    },
+    "class_type": "Flux2Scheduler",
+    "_meta": {
+      "title": "Flux2Scheduler"
+    }
+  },
+  "9:225:227": {
+    "inputs": {
+      "noise_seed": 749629844826168
+    },
+    "class_type": "RandomNoise",
+    "_meta": {
+      "title": "RandomNoise"
+    }
+  },
+  "71:17": {
+    "inputs": {
+      "face_model": "OlaPL6.safetensors"
+    },
+    "class_type": "ReActorLoadFaceModel",
+    "_meta": {
+      "title": "Load Face Model 🌌 ReActor"
+    }
+  },
+  "9:421": {
+    "inputs": {
+      "string_a": "Enhance her breasts, flatter her figure, improve the photo quality, remove objects that spoil the image, no-makeup like makeup, Keep the mole on her neck.",
+      "string_b": "",
+      "delimiter": ""
+    },
+    "class_type": "StringConcatenate",
+    "_meta": {
+      "title": "Łącznik final"
+    }
+  },
+  "13:23": {
+    "inputs": {
+      "image": "mobile_28221859.jpg"
+    },
+    "class_type": "LoadImage",
+    "_meta": {
+      "title": "Load Image"
+    }
+  },
+  "13:2:222": {
+    "inputs": {
+      "unet_name": "Flux-2-Klein-9B-KV-Q4_K_M.gguf"
+    },
+    "class_type": "UnetLoaderGGUF",
+    "_meta": {
+      "title": "Unet Loader (GGUF)"
+    }
+  },
+  "13:2:221": {
+    "inputs": {
+      "clip_name": "qwen_3_8b_fp8mixed.safetensors",
+      "type": "flux2",
+      "device": "default"
+    },
+    "class_type": "CLIPLoader",
+    "_meta": {
+      "title": "Load CLIP"
+    }
+  },
+  "13:2:108": {
+    "inputs": {
+      "vae_name": "flux2-vae.safetensors"
+    },
+    "class_type": "VAELoader",
+    "_meta": {
+      "title": "Load VAE"
+    }
+  },
+  "13:13": {
+    "inputs": {
+      "aspect_ratio": "original",
+      "proportional_width": 1,
+      "proportional_height": 1,
+      "fit": "letterbox",
+      "method": "lanczos",
+      "round_to_multiple": "8",
+      "scale_to_side": "longest",
+      "scale_to_length": 1500,
+      "background_color": "#000000",
+      "image": [
+        "13:23",
+        0
+      ]
+    },
+    "class_type": "LayerUtility: ImageScaleByAspectRatio V2",
+    "_meta": {
+      "title": "Scaller - Ref"
+    }
+  },
+  "9:422:221:140": {
+    "inputs": {
+      "text": "",
+      "clip": [
+        "87",
+        0
+      ]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "Prompt negatywny"
+    }
+  },
+  "9:422:221:107": {
+    "inputs": {
+      "text": [
+        "9:421",
+        0
+      ],
+      "clip": [
+        "87",
+        0
+      ]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "Prompt pozytywny"
+    }
+  },
+  "9:225:235": {
+    "inputs": {
+      "image": [
+        "13:13",
+        0
+      ]
+    },
+    "class_type": "GetImageSizeAndCount",
+    "_meta": {
+      "title": "Get Image Size & Count"
+    }
+  },
+  "9:422:351:236": {
+    "inputs": {
+      "aspect_ratio": "original",
+      "proportional_width": 1,
+      "proportional_height": 1,
+      "fit": "letterbox",
+      "method": "lanczos",
+      "round_to_multiple": "8",
+      "scale_to_side": "longest",
+      "scale_to_length": 1576,
+      "background_color": "#000000",
+      "image": [
+        "13:13",
+        0
+      ]
+    },
+    "class_type": "LayerUtility: ImageScaleByAspectRatio V2",
+    "_meta": {
+      "title": "LayerUtility: ImageScaleByAspectRatio V2"
+    }
+  },
+  "9:225:226": {
+    "inputs": {
+      "width": [
+        "9:225:235",
+        1
+      ],
+      "height": [
+        "9:225:235",
+        2
+      ],
+      "batch_size": 1
+    },
+    "class_type": "EmptyFlux2LatentImage",
+    "_meta": {
+      "title": "Empty Flux 2 Latent"
+    }
+  },
+  "9:422:351:238": {
+    "inputs": {
+      "pixels": [
+        "9:422:351:236",
+        0
+      ],
+      "vae": [
+        "88",
+        0
+      ]
+    },
+    "class_type": "VAEEncode",
+    "_meta": {
+      "title": "VAE Encode"
+    }
+  },
+  "9:422:351:245": {
+    "inputs": {
+      "conditioning": [
+        "9:422:221:140",
+        0
+      ],
+      "latent": [
+        "9:422:351:238",
+        0
+      ]
+    },
+    "class_type": "ReferenceLatent",
+    "_meta": {
+      "title": "Negetive Conditioning"
+    }
+  },
+  "9:422:351:244": {
+    "inputs": {
+      "conditioning": [
+        "9:422:221:107",
+        0
+      ],
+      "latent": [
+        "9:422:351:238",
+        0
+      ]
+    },
+    "class_type": "ReferenceLatent",
+    "_meta": {
+      "title": "Positive Conditioning"
+    }
+  },
+  "9:225:228": {
+    "inputs": {
+      "cfg": 1,
+      "positive": [
+        "78",
+        0
+      ]
+    },
+    "class_type": "CFGGuider",
+    "_meta": {
+      "title": "CFGGuider"
+    }
+  },
+  "9:225:232": {
+    "inputs": {
+      "samples": [
+        "83",
+        0
+      ],
+      "vae": [
+        "88",
+        0
+      ]
+    },
+    "class_type": "VAEDecode",
+    "_meta": {
+      "title": "VAE Decode"
+    }
+  },
+  "71:16": {
+    "inputs": {
+      "enabled": true,
+      "swap_model": "hyperswap_1b_256.onnx",
+      "facedetection": "retinaface_resnet50",
+      "face_restore_model": "GPEN-BFR-512.onnx",
+      "face_restore_visibility": 0.9,
+      "codeformer_weight": 0.5,
+      "detect_gender_input": "no",
+      "detect_gender_source": "no",
+      "input_faces_index": "0",
+      "source_faces_index": "0",
+      "console_log_level": 1,
+      "input_image": [
+        "9:225:232",
+        0
+      ],
+      "face_model": [
+        "71:17",
+        0
+      ]
+    },
+    "class_type": "ReActorFaceSwap",
+    "_meta": {
+      "title": "ReActor 🌌 Fast Face Swap"
+    }
+  },
+  "75:62": {
+    "inputs": {
+      "upscale_model": [
+        "75:63",
+        0
+      ],
+      "image": [
+        "9:225:232",
+        0
+      ]
+    },
+    "class_type": "ImageUpscaleWithModel",
+    "_meta": {
+      "title": "Upscale Image (using Model)"
+    }
+  },
+  "70:62": {
+    "inputs": {
+      "upscale_model": [
+        "70:63",
+        0
+      ],
+      "image": [
+        "71:16",
+        0
+      ]
+    },
+    "class_type": "ImageUpscaleWithModel",
+    "_meta": {
+      "title": "Upscale Image (using Model)"
+    }
+  },
+  "75:64": {
+    "inputs": {
+      "upscale_model": [
+        "75:43",
+        0
+      ],
+      "image": [
+        "75:62",
+        0
+      ]
+    },
+    "class_type": "ImageUpscaleWithModel",
+    "_meta": {
+      "title": "Upscale Image (using Model)"
+    }
+  },
+  "70:64": {
+    "inputs": {
+      "upscale_model": [
+        "70:43",
+        0
+      ],
+      "image": [
+        "70:62",
+        0
+      ]
+    },
+    "class_type": "ImageUpscaleWithModel",
+    "_meta": {
+      "title": "Upscale Image (using Model)"
+    }
+  }
+}

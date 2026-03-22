@@ -1,0 +1,766 @@
+{
+  "1": {
+    "inputs": {
+      "images": [
+        "13:13",
+        0
+      ]
+    },
+    "class_type": "PreviewImage",
+    "_meta": {
+      "title": "Reference"
+    }
+  },
+  "12": {
+    "inputs": {
+      "text_0": "Slim fit, medium breasts. Tokyo street style, Shinjuku neon night, cool gray, convenience store bright, rooftop. Overwhelmingly beautiful, street food eating, clean hairstyles.",
+      "text": [
+        "9:209:213",
+        0
+      ]
+    },
+    "class_type": "ShowText|pysssss",
+    "_meta": {
+      "title": "Final Prompt"
+    }
+  },
+  "60": {
+    "inputs": {
+      "filename_prefix": [
+        "9:209:211",
+        1
+      ],
+      "images": [
+        "70:64",
+        0
+      ]
+    },
+    "class_type": "SaveImage",
+    "_meta": {
+      "title": "Save - reActor"
+    }
+  },
+  "74": {
+    "inputs": {
+      "filename_prefix": [
+        "9:209:211",
+        1
+      ],
+      "images": [
+        "75:64",
+        0
+      ]
+    },
+    "class_type": "SaveImage",
+    "_meta": {
+      "title": "Save"
+    }
+  },
+  "13:17": {
+    "inputs": {
+      "aspect_ratio": "original",
+      "proportional_width": 1,
+      "proportional_height": 1,
+      "fit": "letterbox",
+      "method": "lanczos",
+      "round_to_multiple": "8",
+      "scale_to_side": "longest",
+      "scale_to_length": 1276,
+      "background_color": "#000000"
+    },
+    "class_type": "LayerUtility: ImageScaleByAspectRatio V2",
+    "_meta": {
+      "title": "LayerUtility: ImageScaleByAspectRatio V2"
+    }
+  },
+  "13:2:228": {
+    "inputs": {
+      "unet_name": "Flux-2-Klein-9B-KV-Q4_K_M.gguf"
+    },
+    "class_type": "UnetLoaderGGUF",
+    "_meta": {
+      "title": "Unet Loader (GGUF)"
+    }
+  },
+  "13:2:227": {
+    "inputs": {
+      "clip_name": "qwen_3_8b_fp8mixed.safetensors",
+      "type": "flux2",
+      "device": "default"
+    },
+    "class_type": "CLIPLoader",
+    "_meta": {
+      "title": "Load CLIP"
+    }
+  },
+  "13:2:226": {
+    "inputs": {
+      "vae_name": "flux2-vae.safetensors"
+    },
+    "class_type": "VAELoader",
+    "_meta": {
+      "title": "Load VAE"
+    }
+  },
+  "13:23:234": {
+    "inputs": {
+      "images": [
+        "13:23:231",
+        0
+      ]
+    },
+    "class_type": "Image to RGB [RvTools]",
+    "_meta": {
+      "title": "Image to RGB"
+    }
+  },
+  "13:23:231": {
+    "inputs": {
+      "color": "0,0,0",
+      "device": "cpu",
+      "image": [
+        "13:23:263",
+        0
+      ],
+      "mask": [
+        "13:23:233",
+        0
+      ]
+    },
+    "class_type": "DrawMaskOnImage",
+    "_meta": {
+      "title": "Draw Mask On Image"
+    }
+  },
+  "13:23:233": {
+    "inputs": {
+      "mask": [
+        "13:23:263",
+        1
+      ]
+    },
+    "class_type": "InvertMask",
+    "_meta": {
+      "title": "InvertMask"
+    }
+  },
+  "13:23:263": {
+    "inputs": {
+      "Skin": true,
+      "Nose": true,
+      "Eyeglasses": true,
+      "Left-eye": true,
+      "Right-eye": true,
+      "Left-eyebrow": true,
+      "Right-eyebrow": true,
+      "Left-ear": true,
+      "Right-ear": true,
+      "Mouth": true,
+      "Upper-lip": true,
+      "Lower-lip": true,
+      "Hair": true,
+      "Earring": true,
+      "Neck": true,
+      "process_res": 512,
+      "mask_blur": 0,
+      "mask_offset": 0,
+      "invert_output": false,
+      "background": "Alpha",
+      "background_color": "#222222",
+      "images": [
+        "13:3",
+        0
+      ]
+    },
+    "class_type": "FaceSegment",
+    "_meta": {
+      "title": "Face Segment (RMBG)"
+    }
+  },
+  "13:3": {
+    "inputs": {
+      "image_dir": "C:\\AI\\IMAGES\\OlaPL",
+      "selected_image": "IMG_7649.JPG",
+      "mode": "selection (fixed)",
+      "image_index": 206776646620215
+    },
+    "class_type": "BatchImageLoader",
+    "_meta": {
+      "title": "Ref"
+    }
+  },
+  "13:13": {
+    "inputs": {
+      "aspect_ratio": "original",
+      "proportional_width": 1,
+      "proportional_height": 1,
+      "fit": "letterbox",
+      "method": "lanczos",
+      "round_to_multiple": "8",
+      "scale_to_side": "longest",
+      "scale_to_length": 1500,
+      "background_color": "#000000",
+      "image": [
+        "13:3",
+        0
+      ]
+    },
+    "class_type": "LayerUtility: ImageScaleByAspectRatio V2",
+    "_meta": {
+      "title": "Scaller - Ref"
+    }
+  },
+  "9:225:232": {
+    "inputs": {
+      "samples": [
+        "9:225:231",
+        0
+      ],
+      "vae": [
+        "13:2:226",
+        0
+      ]
+    },
+    "class_type": "VAEDecode",
+    "_meta": {
+      "title": "VAE Decode"
+    }
+  },
+  "9:225:231": {
+    "inputs": {
+      "noise": [
+        "9:225:227",
+        0
+      ],
+      "guider": [
+        "9:225:228",
+        0
+      ],
+      "sampler": [
+        "9:225:229",
+        0
+      ],
+      "sigmas": [
+        "9:225:230",
+        0
+      ],
+      "latent_image": [
+        "9:225:226",
+        0
+      ]
+    },
+    "class_type": "SamplerCustomAdvanced",
+    "_meta": {
+      "title": "SamplerCustomAdvanced"
+    }
+  },
+  "9:225:227": {
+    "inputs": {
+      "noise_seed": 565187244075451
+    },
+    "class_type": "RandomNoise",
+    "_meta": {
+      "title": "RandomNoise"
+    }
+  },
+  "9:225:228": {
+    "inputs": {
+      "cfg": 1,
+      "model": [
+        "13:2:228",
+        0
+      ],
+      "positive": [
+        "9:422:351:244",
+        0
+      ],
+      "negative": [
+        "9:422:351:245",
+        0
+      ]
+    },
+    "class_type": "CFGGuider",
+    "_meta": {
+      "title": "CFGGuider"
+    }
+  },
+  "9:225:226": {
+    "inputs": {
+      "width": [
+        "9:225:235",
+        1
+      ],
+      "height": [
+        "9:225:235",
+        2
+      ],
+      "batch_size": 1
+    },
+    "class_type": "EmptyFlux2LatentImage",
+    "_meta": {
+      "title": "Empty Flux 2 Latent"
+    }
+  },
+  "9:225:235": {
+    "inputs": {
+      "image": [
+        "13:13",
+        0
+      ]
+    },
+    "class_type": "GetImageSizeAndCount",
+    "_meta": {
+      "title": "Get Image Size & Count"
+    }
+  },
+  "9:225:229": {
+    "inputs": {
+      "sampler_name": "euler"
+    },
+    "class_type": "KSamplerSelect",
+    "_meta": {
+      "title": "KSamplerSelect"
+    }
+  },
+  "9:225:230": {
+    "inputs": {
+      "steps": 8,
+      "width": 912,
+      "height": 1584
+    },
+    "class_type": "Flux2Scheduler",
+    "_meta": {
+      "title": "Flux2Scheduler"
+    }
+  },
+  "9:209:196": {
+    "inputs": {
+      "text_0": "Change the style:\nDominant style: Tokyo\ncamera_angle: High angle overhead\nclothing: Tokyo street style\ncolor_grade: Cool urban grey\ndescription: Ancient and ultramodern existing on the same block.\nhairstyles: Simple clean\nlighting: Convenience store bright\nlocation: Tokyo rooftop\nmakeup: Tokyo beauty aesthetic\nmood: Overwhelmingly beautiful\nposes: Street food eating\nstyle: Shinjuku neon night\n;\n \nchange clothes to sexy version!!\n\nSlim fit.\n\nAdd medium breasts\n\nremove black boxes\nremove watermark",
+      "text": [
+        "9:209:211",
+        0
+      ]
+    },
+    "class_type": "ShowText|pysssss",
+    "_meta": {
+      "title": "Wejście"
+    }
+  },
+  "9:209:211": {
+    "inputs": {
+      "seed": 770811239267049,
+      "prefix": "Only Change the style:\n\n \n",
+      "mode": "auto",
+      "main_style": "Claude",
+      "sub_style": "Art",
+      "subsub_style": "Boho",
+      "suffix": ";\nKeep the face ando pose from reference photo \nchange clothes to sexy version!!\n\nSlim fit.\n\nAdd medium breasts\n\nremove black boxes\nremove watermark",
+      "use_history": true
+    },
+    "class_type": "RandomOrManual3LevelChoicesRelaxed",
+    "_meta": {
+      "title": "Prompter"
+    }
+  },
+  "9:209:197": {
+    "inputs": {
+      "from_translate": "pl",
+      "to_translate": "en",
+      "manual_translate": false,
+      "Manual Trasnlate": "Manual Trasnlate",
+      "text": [
+        "9:209:196",
+        0
+      ]
+    },
+    "class_type": "GoogleTranslateTextNode",
+    "_meta": {
+      "title": "Tłumacz PL-EN Wejście"
+    }
+  },
+  "9:209:212": {
+    "inputs": {
+      "string": [
+        "9:209:198",
+        0
+      ],
+      "regex_pattern": "lora: .*",
+      "replace": "",
+      "case_insensitive": true,
+      "multiline": false,
+      "dotall": false,
+      "count": 0
+    },
+    "class_type": "RegexReplace",
+    "_meta": {
+      "title": "Kasowanie Lora"
+    }
+  },
+  "9:209:198": {
+    "inputs": {
+      "string": [
+        "9:209:197",
+        0
+      ],
+      "regex_pattern": "Lora: .*",
+      "replace": "",
+      "case_insensitive": true,
+      "multiline": false,
+      "dotall": false,
+      "count": 0
+    },
+    "class_type": "RegexReplace",
+    "_meta": {
+      "title": "Kasowanie Lora"
+    }
+  },
+  "9:209:199": {
+    "inputs": {
+      "text_0": "Change the style:\nDominant style: Tokyo\ncamera_angle: High angle overhead\nclothing: Tokyo street style\ncolor_grade: Cool urban gray\ndescription: Ancient and ultramodern existing on the same block.\nhairstyles: Simple clean\nlighting: Convenience store bright\nlocation: Tokyo rooftop\nmakeup: Tokyo beauty aesthetic\nmood: Overwhelmingly beautiful\nposes: Street food eating\nstyle: Shinjuku neon night\n;\n\nchange clothes to sexy version!!\n\nSlim fit.\n\nAdd medium breasts\n\nremove black boxes\nremove watermark",
+      "text": [
+        "9:209:212",
+        0
+      ]
+    },
+    "class_type": "ShowText|pysssss",
+    "_meta": {
+      "title": "Wejście ENG"
+    }
+  },
+  "9:209:213": {
+    "inputs": {
+      "prompt": [
+        "9:209:199",
+        0
+      ],
+      "additional_text": "\nYou are image prompter for FluxAI. Main rules: style is main theme of prompt, prompt for image, short prompt, ONLY DESCRIPTION OF THE STYLE! Only final prompt in answer",
+      "seed": 218684483,
+      "model": "Ollama: gemma3 4b",
+      "custom_instruction": "None",
+      "enable_web_search": false,
+      "list_sources": false,
+      "num_search_results": 1,
+      "keep_context": false,
+      "ollama_chat_mode": false,
+      "compress": "soft",
+      "compression_level": "soft",
+      "console_log": true
+    },
+    "class_type": "polymath_chat",
+    "_meta": {
+      "title": "Prompter"
+    }
+  },
+  "9:422:221:107": {
+    "inputs": {
+      "text": [
+        "9:209:213",
+        0
+      ],
+      "clip": [
+        "13:2:227",
+        0
+      ]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "Prompt pozytywny"
+    }
+  },
+  "9:422:221:140": {
+    "inputs": {
+      "text": "",
+      "clip": [
+        "13:2:227",
+        0
+      ]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "Prompt negatywny"
+    }
+  },
+  "9:422:424": {
+    "inputs": {
+      "strength": 1,
+      "blend_with_noise": 0,
+      "channel_mask_start": 0,
+      "channel_mask_end": 128,
+      "spatial_fade": "none",
+      "spatial_fade_strength": 0.5,
+      "debug": false,
+      "conditioning": [
+        "9:422:351:244",
+        0
+      ]
+    },
+    "class_type": "Flux2KleinRefLatentController",
+    "_meta": {
+      "title": "FLUX.2 Klein Ref Latent Controller"
+    }
+  },
+  "9:422:426": {
+    "inputs": {
+      "front_mult": 1,
+      "mid_mult": 0.9,
+      "end_mult": 1,
+      "emphasis_start": 0,
+      "emphasis_end": 0,
+      "emphasis_mult": 1,
+      "preserve_original": 1.3,
+      "preserve_mode": "dampen",
+      "low_vram": false,
+      "device": "cpu",
+      "debug": false,
+      "conditioning": [
+        "9:422:424",
+        0
+      ]
+    },
+    "class_type": "Flux2KleinDetailController",
+    "_meta": {
+      "title": "FLUX.2 Klein Detail Controller"
+    }
+  },
+  "9:422:429": {
+    "inputs": {
+      "balance": 0.5,
+      "debug": false,
+      "conditioning": [
+        "9:422:428",
+        0
+      ]
+    },
+    "class_type": "Flux2KleinTextRefBalance",
+    "_meta": {
+      "title": "FLUX.2 Klein Text/Ref Balance"
+    }
+  },
+  "9:422:428": {
+    "inputs": {
+      "magnitude": 1.25,
+      "contrast": 0.1,
+      "normalize_strength": 0.1,
+      "preserve_original": 0,
+      "preserve_mode": "linear",
+      "edit_text_weight": 1.25,
+      "active_end_override": 0,
+      "low_vram": false,
+      "device": "cpu",
+      "debug": false,
+      "conditioning": [
+        "9:422:426",
+        0
+      ]
+    },
+    "class_type": "Flux2KleinEnhancer",
+    "_meta": {
+      "title": "FLUX.2 Klein Enhancer"
+    }
+  },
+  "9:422:351:238": {
+    "inputs": {
+      "pixels": [
+        "9:422:351:236",
+        0
+      ],
+      "vae": [
+        "13:2:226",
+        0
+      ]
+    },
+    "class_type": "VAEEncode",
+    "_meta": {
+      "title": "VAE Encode"
+    }
+  },
+  "9:422:351:236": {
+    "inputs": {
+      "aspect_ratio": "original",
+      "proportional_width": 1,
+      "proportional_height": 1,
+      "fit": "letterbox",
+      "method": "lanczos",
+      "round_to_multiple": "8",
+      "scale_to_side": "longest",
+      "scale_to_length": 1576,
+      "background_color": "#000000",
+      "image": [
+        "13:13",
+        0
+      ]
+    },
+    "class_type": "LayerUtility: ImageScaleByAspectRatio V2",
+    "_meta": {
+      "title": "LayerUtility: ImageScaleByAspectRatio V2"
+    }
+  },
+  "9:422:351:245": {
+    "inputs": {
+      "conditioning": [
+        "9:422:221:140",
+        0
+      ],
+      "latent": [
+        "9:422:351:238",
+        0
+      ]
+    },
+    "class_type": "ReferenceLatent",
+    "_meta": {
+      "title": "Negetive Conditioning"
+    }
+  },
+  "9:422:351:244": {
+    "inputs": {
+      "conditioning": [
+        "9:422:221:107",
+        0
+      ],
+      "latent": [
+        "9:422:351:238",
+        0
+      ]
+    },
+    "class_type": "ReferenceLatent",
+    "_meta": {
+      "title": "Positive Conditioning"
+    }
+  },
+  "71:17": {
+    "inputs": {
+      "face_model": "OlaPL.safetensors"
+    },
+    "class_type": "ReActorLoadFaceModel",
+    "_meta": {
+      "title": "Load Face Model 🌌 ReActor"
+    }
+  },
+  "71:16": {
+    "inputs": {
+      "enabled": true,
+      "swap_model": "hyperswap_1b_256.onnx",
+      "facedetection": "retinaface_resnet50",
+      "face_restore_model": "GPEN-BFR-512.onnx",
+      "face_restore_visibility": 0.9,
+      "codeformer_weight": 0.5,
+      "detect_gender_input": "no",
+      "detect_gender_source": "no",
+      "input_faces_index": "0",
+      "source_faces_index": "0",
+      "console_log_level": 1,
+      "input_image": [
+        "9:225:232",
+        0
+      ],
+      "face_model": [
+        "71:17",
+        0
+      ]
+    },
+    "class_type": "ReActorFaceSwap",
+    "_meta": {
+      "title": "ReActor 🌌 Fast Face Swap"
+    }
+  },
+  "75:43": {
+    "inputs": {
+      "model_name": "RealESRGAN_x2.pth"
+    },
+    "class_type": "UpscaleModelLoader",
+    "_meta": {
+      "title": "Load Upscale Model"
+    }
+  },
+  "75:63": {
+    "inputs": {
+      "model_name": "1x-ITF-SkinDiffDetail-Lite-v1.pth"
+    },
+    "class_type": "UpscaleModelLoader",
+    "_meta": {
+      "title": "Load Upscale Model"
+    }
+  },
+  "75:62": {
+    "inputs": {
+      "upscale_model": [
+        "75:63",
+        0
+      ],
+      "image": [
+        "9:225:232",
+        0
+      ]
+    },
+    "class_type": "ImageUpscaleWithModel",
+    "_meta": {
+      "title": "Upscale Image (using Model)"
+    }
+  },
+  "75:64": {
+    "inputs": {
+      "upscale_model": [
+        "75:43",
+        0
+      ],
+      "image": [
+        "75:62",
+        0
+      ]
+    },
+    "class_type": "ImageUpscaleWithModel",
+    "_meta": {
+      "title": "Upscale Image (using Model)"
+    }
+  },
+  "70:43": {
+    "inputs": {
+      "model_name": "RealESRGAN_x2.pth"
+    },
+    "class_type": "UpscaleModelLoader",
+    "_meta": {
+      "title": "Load Upscale Model"
+    }
+  },
+  "70:63": {
+    "inputs": {
+      "model_name": "1x-ITF-SkinDiffDetail-Lite-v1.pth"
+    },
+    "class_type": "UpscaleModelLoader",
+    "_meta": {
+      "title": "Load Upscale Model"
+    }
+  },
+  "70:62": {
+    "inputs": {
+      "upscale_model": [
+        "70:63",
+        0
+      ],
+      "image": [
+        "71:16",
+        0
+      ]
+    },
+    "class_type": "ImageUpscaleWithModel",
+    "_meta": {
+      "title": "Upscale Image (using Model)"
+    }
+  },
+  "70:64": {
+    "inputs": {
+      "upscale_model": [
+        "70:43",
+        0
+      ],
+      "image": [
+        "70:62",
+        0
+      ]
+    },
+    "class_type": "ImageUpscaleWithModel",
+    "_meta": {
+      "title": "Upscale Image (using Model)"
+    }
+  }
+}

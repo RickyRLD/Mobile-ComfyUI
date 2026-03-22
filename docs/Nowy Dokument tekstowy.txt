@@ -1,0 +1,10 @@
+@echo off
+
+:: 1. Wejście do folderu z serwerem mobilnym i uruchomienie go w nowym oknie
+echo Uruchamianie serwera mobilnego dla telefonu...
+start cmd /k "cd /d C:\AI\Zdalne\start_mobile.bat"
+
+:: 2. Wejście do folderu ComfyUI i uruchomienie go w biezacym oknie
+echo Uruchamianie ComfyUI...
+cd /d C:\AI\New_Comfy
+call run_nvidia_gpu — NEW.bat

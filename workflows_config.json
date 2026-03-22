@@ -1,0 +1,933 @@
+{
+  "clothes": {
+    "name": "Clothes",
+    "file": "Clothing and face.json",
+    "mappings": [
+      {
+        "role": "image_1",
+        "node_id": "76",
+        "node_title": "Load Image",
+        "node_type": "LoadImage",
+        "field": "image",
+        "label": "Zdjęcie główne"
+      },
+      {
+        "role": "image_2",
+        "node_id": "81",
+        "node_title": "Load Image",
+        "node_type": "LoadImage",
+        "field": "image",
+        "label": "Zdjęcie drugie"
+      },
+      {
+        "role": "output",
+        "node_id": "94",
+        "node_title": "Save Image",
+        "node_type": "SaveImage"
+      },
+      {
+        "role": "output",
+        "node_id": "132",
+        "node_title": "Save Image",
+        "node_type": "SaveImage"
+      },
+      {
+        "role": "prompt",
+        "node_id": "197",
+        "node_title": "XX łączniik",
+        "node_type": "StringConcatenate",
+        "field": "string_a",
+        "_suffix_default": "Photorealistic portrait of the exact woman from reference photo 1, keeping her face, hair, and specific features completely unchanged. Change only outfit/clothes. She is wearing the precise outfit from reference photo 2:",
+        "simple_editable": true,
+        "simple_label": "XX łączniik"
+      }
+    ],
+    "output_node_ids": [
+      "94",
+      "132"
+    ]
+  },
+  "photo_ola_new": {
+    "name": "Photo Ola NEW",
+    "file": "workflows/PhotoRicky_v1.0.json",
+    "mappings": [
+      {
+        "role": "image_1",
+        "node_id": "13:23",
+        "node_title": "Load Image",
+        "node_type": "LoadImage",
+        "field": "image",
+        "label": "Zdjęcie główne"
+      },
+      {
+        "role": "prompt",
+        "node_id": "9:421",
+        "node_title": "Łącznik final",
+        "node_type": "StringConcatenate",
+        "field": "string_a",
+        "prefix_field": null,
+        "_suffix_default": "Enhance her breasts, flatter her figure, improve the photo quality, remove objects that spoil the image, no-makeup like makeup, Keep the mole on her neck.",
+        "simple_editable": true,
+        "simple_label": "Łącznik final"
+      },
+      {
+        "role": "output",
+        "node_id": "60",
+        "node_title": "Save - reActor",
+        "node_type": "SaveImage"
+      },
+      {
+        "role": "output",
+        "node_id": "74",
+        "node_title": "Save",
+        "node_type": "SaveImage"
+      }
+    ],
+    "output_node_ids": [
+      "60",
+      "74"
+    ]
+  },
+  "naked": {
+    "name": "Naked",
+    "file": "workflows/Naked.json",
+    "mappings": [
+      {
+        "role": "image_1",
+        "node_id": "76",
+        "node_title": "Load Image",
+        "node_type": "LoadImage",
+        "field": "image",
+        "label": "Zdjęcie główne"
+      },
+      {
+        "role": "prompt",
+        "node_id": "107",
+        "node_title": "CLIP Text Encode (Prompt)",
+        "node_type": "CLIPTextEncode",
+        "field": "text",
+        "prefix_field": null,
+        "_suffix_default": "",
+        "simple_editable": true,
+        "simple_label": "CLIP Text Encode (Prompt)"
+      },
+      {
+        "role": "prompt",
+        "node_id": "140",
+        "node_title": "CLIP Text Encode (Prompt)",
+        "node_type": "CLIPTextEncode",
+        "field": "text",
+        "prefix_field": null,
+        "_suffix_default": "",
+        "simple_editable": true,
+        "simple_label": "CLIP Text Encode (Prompt)"
+      },
+      {
+        "role": "output",
+        "node_id": "94",
+        "node_title": "Save Image",
+        "node_type": "SaveImage"
+      },
+      {
+        "role": "output",
+        "node_id": "132",
+        "node_title": "Save Image",
+        "node_type": "SaveImage"
+      },
+      {
+        "role": "output",
+        "node_id": "197",
+        "node_title": "Save Image",
+        "node_type": "SaveImage"
+      }
+    ],
+    "output_node_ids": [
+      "94",
+      "132",
+      "197"
+    ]
+  },
+  "sexy_ola": {
+    "name": "Sexy Ola",
+    "file": "workflows/SexyOla.json",
+    "mappings": [
+      {
+        "role": "image_1",
+        "node_id": "76",
+        "node_title": "Load Image",
+        "node_type": "LoadImage",
+        "field": "image",
+        "label": "Zdjęcie główne"
+      },
+      {
+        "role": "prompt",
+        "node_id": "107",
+        "node_title": "Posiitive",
+        "node_type": "CLIPTextEncode",
+        "field": "text",
+        "prefix_field": null,
+        "_suffix_default": "",
+        "simple_editable": true,
+        "simple_label": "Posiitive"
+      },
+      {
+        "role": "output",
+        "node_id": "94",
+        "node_title": "Save Image",
+        "node_type": "SaveImage"
+      },
+      {
+        "role": "output",
+        "node_id": "132",
+        "node_title": "Save Image",
+        "node_type": "SaveImage"
+      },
+      {
+        "role": "output",
+        "node_id": "197",
+        "node_title": "Save Image",
+        "node_type": "SaveImage"
+      }
+    ],
+    "output_node_ids": [
+      "94",
+      "132",
+      "197"
+    ]
+  },
+  "rickypl_v6": {
+    "name": "RickyPL V6",
+    "file": "workflows/Rickyv6.json",
+    "mappings": [
+      {
+        "role": "prompt",
+        "node_id": "140",
+        "node_title": "CLIP Text Encode (Prompt)",
+        "node_type": "CLIPTextEncode",
+        "field": "text",
+        "_suffix_default": "",
+        "simple_editable": true,
+        "simple_label": "CLIP Text Encode (Prompt)"
+      },
+      {
+        "role": "image_1",
+        "node_id": "76",
+        "node_title": "Load Image",
+        "node_type": "LoadImage",
+        "field": "image",
+        "label": "Zdjęcie główne"
+      },
+      {
+        "role": "output",
+        "node_id": "94",
+        "node_title": "Save Image",
+        "node_type": "SaveImage"
+      },
+      {
+        "role": "output",
+        "node_id": "132",
+        "node_title": "Save Image",
+        "node_type": "SaveImage"
+      },
+      {
+        "role": "output",
+        "node_id": "197",
+        "node_title": "Save Image",
+        "node_type": "SaveImage"
+      },
+      {
+        "role": "prompt",
+        "node_id": "199",
+        "node_title": "XX łączniik",
+        "node_type": "StringConcatenate",
+        "field": "string_a",
+        "_suffix_default": "The same person, same pose, same face, same as the source image — composition unchanged. Apply the following visual style, clothes etc throughout: ",
+        "simple_editable": true,
+        "simple_label": "XX łączniik"
+      },
+      {
+        "role": "prompt",
+        "node_id": "198:211",
+        "node_title": "Prompter",
+        "node_type": "RandomOrManual3LevelChoicesRelaxed",
+        "field": "prefix",
+        "_suffix_default": "Change the style:\n\n \n",
+        "simple_editable": true,
+        "simple_label": "Prompter / prefix"
+      },
+      {
+        "role": "style",
+        "node_id": "198:211",
+        "node_title": "Prompter",
+        "node_type": "RandomOrManual3LevelChoicesRelaxed",
+        "field": "mode",
+        "mode_field": "mode",
+        "main_field": "main_style",
+        "sub_field": "sub_style",
+        "subsub_field": "subsub_style"
+      },
+      {
+        "role": "style",
+        "node_id": "198:211",
+        "node_title": "Prompter",
+        "node_type": "RandomOrManual3LevelChoicesRelaxed",
+        "field": "main_style",
+        "mode_field": "mode",
+        "main_field": "main_style",
+        "sub_field": "sub_style",
+        "subsub_field": "subsub_style"
+      },
+      {
+        "role": "style",
+        "node_id": "198:211",
+        "node_title": "Prompter",
+        "node_type": "RandomOrManual3LevelChoicesRelaxed",
+        "field": "sub_style",
+        "mode_field": "mode",
+        "main_field": "main_style",
+        "sub_field": "sub_style",
+        "subsub_field": "subsub_style"
+      },
+      {
+        "role": "style",
+        "node_id": "198:211",
+        "node_title": "Prompter",
+        "node_type": "RandomOrManual3LevelChoicesRelaxed",
+        "field": "subsub_style",
+        "mode_field": "mode",
+        "main_field": "main_style",
+        "sub_field": "sub_style",
+        "subsub_field": "subsub_style"
+      },
+      {
+        "role": "prompt",
+        "node_id": "198:211",
+        "node_title": "Prompter",
+        "node_type": "RandomOrManual3LevelChoicesRelaxed",
+        "field": "suffix",
+        "_suffix_default": ";\n",
+        "simple_editable": true,
+        "simple_label": "Prompter / suffix"
+      },
+      {
+        "role": "custom",
+        "node_id": "195:17",
+        "node_title": "Load Face Model 🌌 ReActor",
+        "node_type": "ReActorLoadFaceModel",
+        "field": "face_model",
+        "label": "Load Face Model 🌌 ReActor / face_model",
+        "form_key": "custom_195:17_face_model",
+        "ctrl_type": "select",
+        "default": "OlaPL4.safetensors",
+        "options": [
+          "none",
+          "OlaPL.safetensors",
+          "OlaPL1.safetensors",
+          "OlaPL3.safetensors",
+          "OlaPL4.safetensors",
+          "OlaPL5.safetensors",
+          "OlaPL6.safetensors"
+        ]
+      },
+      {
+        "role": "custom",
+        "node_id": "182",
+        "node_title": "Int",
+        "node_type": "Int",
+        "field": "value",
+        "label": "Int / value",
+        "form_key": "custom_182_value",
+        "ctrl_type": "number",
+        "default": 1800
+      }
+    ],
+    "output_node_ids": [
+      "94",
+      "132",
+      "197"
+    ]
+  },
+  "ola_v1": {
+    "name": "Ola V1",
+    "file": "workflows/Olav1.json",
+    "mappings": [
+      {
+        "role": "image_1",
+        "node_id": "76",
+        "node_title": "Load Image",
+        "node_type": "LoadImage",
+        "field": "image",
+        "label": "Zdjęcie główne"
+      },
+      {
+        "role": "output",
+        "node_id": "94",
+        "node_title": "Save Image",
+        "node_type": "SaveImage"
+      },
+      {
+        "role": "output",
+        "node_id": "132",
+        "node_title": "Save Image",
+        "node_type": "SaveImage"
+      },
+      {
+        "role": "output",
+        "node_id": "197",
+        "node_title": "Save Image",
+        "node_type": "SaveImage"
+      },
+      {
+        "role": "custom",
+        "node_id": "199",
+        "node_title": "XX łączniik",
+        "node_type": "StringConcatenate",
+        "field": "string_b",
+        "label": "XX łączniik / string_b",
+        "form_key": "custom_199_string_b",
+        "ctrl_type": "text",
+        "default": "Hinata z anime \"Naruto\""
+      }
+    ],
+    "output_node_ids": [
+      "94",
+      "132",
+      "197"
+    ]
+  },
+  "ricky_pl_1": {
+    "name": "Ricky PL 1",
+    "file": "workflows/Rickypl1.json",
+    "mappings": [
+      {
+        "role": "image_1",
+        "node_id": "76",
+        "node_title": "Load Image",
+        "node_type": "LoadImage",
+        "field": "image",
+        "label": "Zdjęcie główne"
+      },
+      {
+        "role": "output",
+        "node_id": "94",
+        "node_title": "Save Image",
+        "node_type": "SaveImage"
+      },
+      {
+        "role": "output",
+        "node_id": "132",
+        "node_title": "Save Image",
+        "node_type": "SaveImage"
+      },
+      {
+        "role": "output",
+        "node_id": "197",
+        "node_title": "Save Image",
+        "node_type": "SaveImage"
+      },
+      {
+        "role": "prompt",
+        "node_id": "199",
+        "node_title": "XX łączniik",
+        "node_type": "StringConcatenate",
+        "field": "string_a",
+        "_suffix_default": "Ta sama kobieta, w tej samej pozie i z tą samą twarzą i układem tła (ale bez tych samych akcesorii, mebli itp) co na zdjęciu referencyjnym. Zmień jedynie styl zdjęcia- dopasuj ubiór kobiety oraz tło do stylu:",
+        "simple_editable": true,
+        "simple_label": "XX łączniik"
+      },
+      {
+        "role": "custom",
+        "node_id": "198:211",
+        "node_title": "Prompter",
+        "node_type": "RandomOrManual3LevelChoicesRelaxed",
+        "field": "prefix",
+        "label": "Prompter / prefix",
+        "form_key": "custom_198:211_prefix",
+        "ctrl_type": "text",
+        "default": "\n\n \n"
+      },
+      {
+        "role": "custom",
+        "node_id": "198:211",
+        "node_title": "Prompter",
+        "node_type": "RandomOrManual3LevelChoicesRelaxed",
+        "field": "mode",
+        "label": "Prompter / mode",
+        "form_key": "custom_198:211_mode",
+        "ctrl_type": "select",
+        "default": "manual_main",
+        "options": [
+          "auto",
+          "manual_main",
+          "manual_sub",
+          "manual_all"
+        ]
+      },
+      {
+        "role": "custom",
+        "node_id": "198:211",
+        "node_title": "Prompter",
+        "node_type": "RandomOrManual3LevelChoicesRelaxed",
+        "field": "main_style",
+        "label": "Prompter / main_style",
+        "form_key": "custom_198:211_main_style",
+        "ctrl_type": "select",
+        "default": "Claude",
+        "options": [
+          "Claude",
+          "Sexy Main"
+        ]
+      },
+      {
+        "role": "custom",
+        "node_id": "198:211",
+        "node_title": "Prompter",
+        "node_type": "RandomOrManual3LevelChoicesRelaxed",
+        "field": "sub_style",
+        "label": "Prompter / sub_style",
+        "form_key": "custom_198:211_sub_style",
+        "ctrl_type": "select",
+        "default": "Art",
+        "options": [
+          "Art",
+          "Character and Cosplay",
+          "Christmas",
+          "Dark and Moody",
+          "Fantasy and Myth",
+          "Fashion",
+          "Hard",
+          "Lifestyle",
+          "Media and Ads",
+          "Photo",
+          "Random",
+          "Retro and Vintage",
+          "Seasonal",
+          "Sexy Art",
+          "Sexy Photo",
+          "Travel"
+        ]
+      },
+      {
+        "role": "custom",
+        "node_id": "198:211",
+        "node_title": "Prompter",
+        "node_type": "RandomOrManual3LevelChoicesRelaxed",
+        "field": "subsub_style",
+        "label": "Prompter / subsub_style",
+        "form_key": "custom_198:211_subsub_style",
+        "ctrl_type": "select",
+        "default": "Movie Poster",
+        "options": [
+          "AI Art",
+          "Abstract Art",
+          "Accessories",
+          "Advertisement",
+          "Alt-History Personas",
+          "Anime",
+          "Arctic",
+          "Artyzm ekspresja ciala",
+          "Autumn Mood",
+          "Bali",
+          "Barbiecore",
+          "Beach",
+          "Behind the Scenes",
+          "Board Game",
+          "Boho",
+          "Boudoir",
+          "Cafe Vibes",
+          "Card Mashup",
+          "Cartoon Transforms",
+          "Christmas Art",
+          "Christmas Classic",
+          "Christmas Sexy",
+          "City Walk",
+          "Classical Painting",
+          "Clothing Materials",
+          "Colors",
+          "Conceptual Faces",
+          "Console Game Cover",
+          "Cooking",
+          "Cottagecore",
+          "Cyberpunk",
+          "Dark Academia",
+          "Desert",
+          "Digital Art",
+          "Dream",
+          "Dress",
+          "Easter Classic",
+          "Easter Sexy",
+          "Editorial",
+          "Eighties",
+          "Elements",
+          "Energy",
+          "Equestrian",
+          "Erotic Art",
+          "EroticXXX",
+          "Fairytale",
+          "Fantasy",
+          "Fantazje z rzeczywistoscia",
+          "Fashion Campaign",
+          "Fast Prompt",
+          "Fifties",
+          "Fitness",
+          "Five Star",
+          "Floral Motifs",
+          "Floral Surrealism",
+          "Food and Drink",
+          "Forms",
+          "Game Avatar",
+          "Game Cover",
+          "Genre Collisions",
+          "Geometric",
+          "Golden Hour",
+          "Golden Morning",
+          "Gothic Romance",
+          "Gotowanie to moje najbardziej sexy hobby",
+          "Gowns and Dresses",
+          "Gra online sexy zywiol",
+          "Grunge",
+          "Gryffindor dom najlepszej magii dekoltow i duzych biustow",
+          "Halloween Classic",
+          "Halloween Sexy",
+          "Home Work",
+          "Illustrations",
+          "Industrial Sirens",
+          "Ink Wash Painting",
+          "Kobiecosc industrial",
+          "Kocham swoj duzy tylek",
+          "Laboratory",
+          "Late Night",
+          "Lingerie",
+          "London",
+          "Lumina",
+          "Magazine Cover",
+          "Media Character Fusion",
+          "Midnight",
+          "Minimalist",
+          "Mirror Selfie",
+          "Mixed Styles",
+          "Mobile Game Cover",
+          "Modern Art",
+          "Moj dekolt",
+          "Mountain Expeditions",
+          "Movie Poster",
+          "Movie Scene",
+          "Music Album",
+          "Music Art",
+          "Myth",
+          "Myth Fusion",
+          "Mythical Civilizations",
+          "National Portraits",
+          "Nature",
+          "Neon",
+          "New Year Classic",
+          "New Year Sexy",
+          "New York",
+          "Night Out",
+          "Noir",
+          "Nowoczesna bogini",
+          "Old Money",
+          "Original Cosplay",
+          "PC Game Cover",
+          "POV",
+          "Painting",
+          "Paris",
+          "Personal Avatar",
+          "Photography",
+          "Pixel Art",
+          "PlayStation Game Cover",
+          "Podrywam cie na moj biust",
+          "Polish Myths",
+          "Polish Regions",
+          "Poranne lenistwo duzy biust",
+          "Poses",
+          "Power Pose",
+          "Professional Sessions",
+          "Random",
+          "Random Styles",
+          "Retro Poster",
+          "Running",
+          "Seasons",
+          "Seventies",
+          "Sex Solo",
+          "Sexy",
+          "Sexy Christmas Art",
+          "Sexy Work",
+          "Sexy bal przebierancow",
+          "Sexy home work",
+          "Spring Bloom",
+          "Street Style",
+          "Studio Soft",
+          "Styles of Life",
+          "Summer Heat",
+          "Summer Rain",
+          "Super Everyday Heroines",
+          "Super Housewife",
+          "Surf",
+          "TV Series Poster",
+          "Teaser",
+          "Tech Art",
+          "Tennis",
+          "Theatre",
+          "Time",
+          "Tokyo",
+          "Toys Box",
+          "Transcivilizational Fantasy",
+          "Travel",
+          "Travel Postcards",
+          "Urban",
+          "Vacation Lazy Days",
+          "Valentine Classic",
+          "Valentine Sexy",
+          "Victorian",
+          "W co mam sie ubrac",
+          "Webtoon",
+          "Wet and Fresh",
+          "Winter Cozy",
+          "Wojna milosc biust",
+          "Work",
+          "World Tour",
+          "Xbox Game Cover",
+          "Y2K",
+          "Yoga",
+          "Za duzy dekolt",
+          "Zmyslowosc swiatlo cien",
+          "blowjob",
+          "cowgirl anal sex",
+          "focused on nipples",
+          "hand in panties"
+        ]
+      },
+      {
+        "role": "custom",
+        "node_id": "198:211",
+        "node_title": "Prompter",
+        "node_type": "RandomOrManual3LevelChoicesRelaxed",
+        "field": "suffix",
+        "label": "Prompter / suffix",
+        "form_key": "custom_198:211_suffix",
+        "ctrl_type": "text",
+        "default": "\n"
+      },
+      {
+        "role": "custom",
+        "node_id": "182",
+        "node_title": "Int",
+        "node_type": "Int",
+        "field": "value",
+        "label": "Int / value",
+        "form_key": "custom_182_value",
+        "ctrl_type": "number",
+        "default": 1800
+      },
+      {
+        "role": "custom",
+        "node_id": "195:17",
+        "node_title": "Load Face Model 🌌 ReActor",
+        "node_type": "ReActorLoadFaceModel",
+        "field": "face_model",
+        "label": "Load Face Model 🌌 ReActor / face_model",
+        "form_key": "custom_195:17_face_model",
+        "ctrl_type": "select",
+        "default": "OlaPL4.safetensors",
+        "options": [
+          "none",
+          "OlaPL.safetensors",
+          "OlaPL1.safetensors",
+          "OlaPL3.safetensors",
+          "OlaPL4.safetensors",
+          "OlaPL5.safetensors",
+          "OlaPL6.safetensors"
+        ]
+      }
+    ],
+    "output_node_ids": [
+      "94",
+      "132",
+      "197"
+    ]
+  },
+  "ricky_xx_1": {
+    "name": "Ricky XX 1",
+    "file": "workflows/RickyXX1.json",
+    "mappings": [
+      {
+        "role": "prompt",
+        "node_id": "140",
+        "node_title": "CLIP Text Encode (Prompt)",
+        "node_type": "CLIPTextEncode",
+        "field": "text",
+        "_suffix_default": "",
+        "simple_editable": true,
+        "simple_label": "CLIP Text Encode (Prompt)"
+      },
+      {
+        "role": "image_1",
+        "node_id": "76",
+        "node_title": "Load Image",
+        "node_type": "LoadImage",
+        "field": "image",
+        "label": "Zdjęcie główne"
+      },
+      {
+        "role": "output",
+        "node_id": "94",
+        "node_title": "Save Image",
+        "node_type": "SaveImage"
+      },
+      {
+        "role": "output",
+        "node_id": "132",
+        "node_title": "Save Image",
+        "node_type": "SaveImage"
+      },
+      {
+        "role": "output",
+        "node_id": "197",
+        "node_title": "Save Image",
+        "node_type": "SaveImage"
+      },
+      {
+        "role": "prompt",
+        "node_id": "199",
+        "node_title": "XX łączniik",
+        "node_type": "StringConcatenate",
+        "field": "string_a",
+        "_suffix_default": "Ta sama kobieta co na zdjęciu referencyjnym. Zmień styl zdjęcia- Zmień pozę na sexy, ubiór kobiety oraz tło do sexy stylu:",
+        "simple_editable": true,
+        "simple_label": "XX łączniik"
+      },
+      {
+        "role": "style",
+        "node_id": "198:211",
+        "node_title": "Prompter",
+        "node_type": "RandomOrManual3LevelChoicesRelaxed",
+        "field": "mode",
+        "mode_field": "mode",
+        "main_field": "main_style",
+        "sub_field": "sub_style",
+        "subsub_field": "subsub_style"
+      },
+      {
+        "role": "style",
+        "node_id": "198:211",
+        "node_title": "Prompter",
+        "node_type": "RandomOrManual3LevelChoicesRelaxed",
+        "field": "main_style",
+        "mode_field": "mode",
+        "main_field": "main_style",
+        "sub_field": "sub_style",
+        "subsub_field": "subsub_style"
+      },
+      {
+        "role": "style",
+        "node_id": "198:211",
+        "node_title": "Prompter",
+        "node_type": "RandomOrManual3LevelChoicesRelaxed",
+        "field": "sub_style",
+        "mode_field": "mode",
+        "main_field": "main_style",
+        "sub_field": "sub_style",
+        "subsub_field": "subsub_style"
+      },
+      {
+        "role": "style",
+        "node_id": "198:211",
+        "node_title": "Prompter",
+        "node_type": "RandomOrManual3LevelChoicesRelaxed",
+        "field": "subsub_style",
+        "mode_field": "mode",
+        "main_field": "main_style",
+        "sub_field": "sub_style",
+        "subsub_field": "subsub_style"
+      },
+      {
+        "role": "custom",
+        "node_id": "195:17",
+        "node_title": "Load Face Model 🌌 ReActor",
+        "node_type": "ReActorLoadFaceModel",
+        "field": "face_model",
+        "label": "Load Face Model 🌌 ReActor / face_model",
+        "form_key": "custom_195:17_face_model",
+        "ctrl_type": "select",
+        "default": "OlaPL4.safetensors",
+        "options": [
+          "none",
+          "OlaPL.safetensors",
+          "OlaPL1.safetensors",
+          "OlaPL3.safetensors",
+          "OlaPL4.safetensors",
+          "OlaPL5.safetensors",
+          "OlaPL6.safetensors"
+        ]
+      },
+      {
+        "role": "custom",
+        "node_id": "182",
+        "node_title": "Int",
+        "node_type": "Int",
+        "field": "value",
+        "label": "Int / value",
+        "form_key": "custom_182_value",
+        "ctrl_type": "number",
+        "default": 1800
+      },
+      {
+        "role": "custom",
+        "node_id": "198:211",
+        "node_title": "Prompter",
+        "node_type": "RandomOrManual3LevelChoicesRelaxed",
+        "field": "suffix",
+        "label": "Prompter / suffix",
+        "form_key": "custom_198:211_suffix",
+        "ctrl_type": "text",
+        "default": ""
+      },
+      {
+        "role": "custom",
+        "node_id": "204",
+        "node_title": "Load LoRA (Model and CLIP)",
+        "node_type": "LoraLoader",
+        "field": "lora_name",
+        "label": "Load LoRA (Model and CLIP) / lora_name",
+        "form_key": "custom_204_lora_name",
+        "ctrl_type": "select",
+        "default": "KLEIN-Unchained-V1.safetensors",
+        "options": [
+          "1A_Back_Pose_Enhancer.safetensors",
+          "Flux Klein - NSFW v2.safetensors",
+          "KLEIN-Unchained-V1.safetensors",
+          "klein_snofs_v1_1.safetensors",
+          "pawg_klein.safetensors"
+        ]
+      },
+      {
+        "role": "custom",
+        "node_id": "204",
+        "node_title": "Load LoRA (Model and CLIP)",
+        "node_type": "LoraLoader",
+        "field": "strength_model",
+        "label": "Load LoRA (Model and CLIP) / strength_model",
+        "form_key": "custom_204_strength_model",
+        "ctrl_type": "number",
+        "default": 0
+      },
+      {
+        "role": "custom",
+        "node_id": "204",
+        "node_title": "Load LoRA (Model and CLIP)",
+        "node_type": "LoraLoader",
+        "field": "strength_clip",
+        "label": "Load LoRA (Model and CLIP) / strength_clip",
+        "form_key": "custom_204_strength_clip",
+        "ctrl_type": "number",
+        "default": 0
+      }
+    ],
+    "output_node_ids": [
+      "94",
+      "132",
+      "197"
+    ]
+  }
+}

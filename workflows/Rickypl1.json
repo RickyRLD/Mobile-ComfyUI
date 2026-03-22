@@ -1,0 +1,601 @@
+{
+  "76": {
+    "inputs": {
+      "image": "77A42B0B-856E-4F99-91F1-AFEAA275DFFC.jpeg"
+    },
+    "class_type": "LoadImage",
+    "_meta": {
+      "title": "Load Image"
+    }
+  },
+  "94": {
+    "inputs": {
+      "filename_prefix": "Flux2-Klein",
+      "images": [
+        "189",
+        0
+      ]
+    },
+    "class_type": "SaveImage",
+    "_meta": {
+      "title": "Save Image"
+    }
+  },
+  "99": {
+    "inputs": {
+      "sampler_name": "euler"
+    },
+    "class_type": "KSamplerSelect",
+    "_meta": {
+      "title": "KSamplerSelect"
+    }
+  },
+  "100": {
+    "inputs": {
+      "steps": 8,
+      "width": [
+        "115",
+        0
+      ],
+      "height": [
+        "115",
+        1
+      ]
+    },
+    "class_type": "Flux2Scheduler",
+    "_meta": {
+      "title": "Flux2Scheduler"
+    }
+  },
+  "101": {
+    "inputs": {
+      "cfg": 1,
+      "model": [
+        "206",
+        0
+      ],
+      "positive": [
+        "121",
+        0
+      ],
+      "negative": [
+        "119",
+        0
+      ]
+    },
+    "class_type": "CFGGuider",
+    "_meta": {
+      "title": "CFGGuider"
+    }
+  },
+  "102": {
+    "inputs": {
+      "noise": [
+        "104",
+        0
+      ],
+      "guider": [
+        "101",
+        0
+      ],
+      "sampler": [
+        "99",
+        0
+      ],
+      "sigmas": [
+        "100",
+        0
+      ],
+      "latent_image": [
+        "114",
+        0
+      ]
+    },
+    "class_type": "SamplerCustomAdvanced",
+    "_meta": {
+      "title": "SamplerCustomAdvanced"
+    }
+  },
+  "103": {
+    "inputs": {
+      "samples": [
+        "102",
+        0
+      ],
+      "vae": [
+        "108",
+        0
+      ]
+    },
+    "class_type": "VAEDecode",
+    "_meta": {
+      "title": "VAE Decode"
+    }
+  },
+  "104": {
+    "inputs": {
+      "noise_seed": [
+        "126",
+        0
+      ]
+    },
+    "class_type": "RandomNoise",
+    "_meta": {
+      "title": "RandomNoise"
+    }
+  },
+  "106": {
+    "inputs": {
+      "clip_name": "qwen_3_8b_fp8mixed.safetensors",
+      "type": "flux2",
+      "device": "default"
+    },
+    "class_type": "CLIPLoader",
+    "_meta": {
+      "title": "Load CLIP"
+    }
+  },
+  "107": {
+    "inputs": {
+      "text": [
+        "199",
+        0
+      ],
+      "clip": [
+        "106",
+        0
+      ]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "CLIP Text Encode (Prompt)"
+    }
+  },
+  "108": {
+    "inputs": {
+      "vae_name": "flux2-vae.safetensors"
+    },
+    "class_type": "VAELoader",
+    "_meta": {
+      "title": "Load VAE"
+    }
+  },
+  "114": {
+    "inputs": {
+      "width": [
+        "115",
+        0
+      ],
+      "height": [
+        "115",
+        1
+      ],
+      "batch_size": 1
+    },
+    "class_type": "EmptyFlux2LatentImage",
+    "_meta": {
+      "title": "Empty Flux 2 Latent"
+    }
+  },
+  "115": {
+    "inputs": {
+      "image": [
+        "122",
+        0
+      ]
+    },
+    "class_type": "GetImageSize",
+    "_meta": {
+      "title": "Get Image Size"
+    }
+  },
+  "116": {
+    "inputs": {
+      "conditioning": [
+        "140",
+        0
+      ],
+      "latent": [
+        "117",
+        0
+      ]
+    },
+    "class_type": "ReferenceLatent",
+    "_meta": {
+      "title": "ReferenceLatent"
+    }
+  },
+  "117": {
+    "inputs": {
+      "pixels": [
+        "122",
+        0
+      ],
+      "vae": [
+        "108",
+        0
+      ]
+    },
+    "class_type": "VAEEncode",
+    "_meta": {
+      "title": "VAE Encode"
+    }
+  },
+  "118": {
+    "inputs": {
+      "conditioning": [
+        "107",
+        0
+      ],
+      "latent": [
+        "117",
+        0
+      ]
+    },
+    "class_type": "ReferenceLatent",
+    "_meta": {
+      "title": "ReferenceLatent"
+    }
+  },
+  "119": {
+    "inputs": {
+      "conditioning": [
+        "116",
+        0
+      ]
+    },
+    "class_type": "ReferenceLatent",
+    "_meta": {
+      "title": "ReferenceLatent"
+    }
+  },
+  "121": {
+    "inputs": {
+      "conditioning": [
+        "118",
+        0
+      ]
+    },
+    "class_type": "ReferenceLatent",
+    "_meta": {
+      "title": "ReferenceLatent"
+    }
+  },
+  "122": {
+    "inputs": {
+      "aspect_ratio": "original",
+      "proportional_width": 1,
+      "proportional_height": 1,
+      "fit": "letterbox",
+      "method": "lanczos",
+      "round_to_multiple": "8",
+      "scale_to_side": "longest",
+      "scale_to_length": [
+        "182",
+        0
+      ],
+      "background_color": "#000000",
+      "image": [
+        "76",
+        0
+      ]
+    },
+    "class_type": "LayerUtility: ImageScaleByAspectRatio V2",
+    "_meta": {
+      "title": "LayerUtility: ImageScaleByAspectRatio V2"
+    }
+  },
+  "125": {
+    "inputs": {
+      "rgthree_comparer": {
+        "images": [
+          {
+            "name": "A",
+            "selected": true,
+            "url": "/api/view?filename=rgthree.compare._temp_iryix_00001_.png&type=temp&subfolder=&rand=0.45967618638345464"
+          },
+          {
+            "name": "B",
+            "selected": true,
+            "url": "/api/view?filename=rgthree.compare._temp_iryix_00002_.png&type=temp&subfolder=&rand=0.23857590605454582"
+          }
+        ]
+      },
+      "image_a": [
+        "76",
+        0
+      ],
+      "image_b": [
+        "103",
+        0
+      ]
+    },
+    "class_type": "Image Comparer (rgthree)",
+    "_meta": {
+      "title": "Image Comparer (rgthree)"
+    }
+  },
+  "126": {
+    "inputs": {
+      "seed": -1
+    },
+    "class_type": "Seed (rgthree)",
+    "_meta": {
+      "title": "Seed (rgthree)"
+    }
+  },
+  "127": {
+    "inputs": {
+      "image1_text": "Foto 1",
+      "image2_text": "Efekt koncowy",
+      "image3_text": "Efekt koncowy",
+      "image4_text": "Foto 3",
+      "reel_height": 1024,
+      "border": 32,
+      "image1": [
+        "76",
+        0
+      ],
+      "image2": [
+        "103",
+        0
+      ]
+    },
+    "class_type": "LayerUtility: ImageReel",
+    "_meta": {
+      "title": "LayerUtility: Image Reel"
+    }
+  },
+  "131": {
+    "inputs": {
+      "font_file": "Alibaba-PuHuiTi-Heavy.ttf",
+      "font_size": 40,
+      "border": 32,
+      "color_theme": "light",
+      "reel_1": [
+        "127",
+        0
+      ]
+    },
+    "class_type": "LayerUtility: ImageReelComposit",
+    "_meta": {
+      "title": "LayerUtility: Image Reel Composit"
+    }
+  },
+  "132": {
+    "inputs": {
+      "filename_prefix": "ComfyUI",
+      "images": [
+        "131",
+        0
+      ]
+    },
+    "class_type": "SaveImage",
+    "_meta": {
+      "title": "Save Image"
+    }
+  },
+  "140": {
+    "inputs": {
+      "text": "",
+      "clip": [
+        "106",
+        0
+      ]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "CLIP Text Encode (Prompt)"
+    }
+  },
+  "182": {
+    "inputs": {
+      "value": 1800
+    },
+    "class_type": "Int",
+    "_meta": {
+      "title": "Int"
+    }
+  },
+  "189": {
+    "inputs": {
+      "upscale_model": [
+        "190",
+        0
+      ],
+      "image": [
+        "103",
+        0
+      ]
+    },
+    "class_type": "ImageUpscaleWithModel",
+    "_meta": {
+      "title": "Upscale Image (using Model)"
+    }
+  },
+  "190": {
+    "inputs": {
+      "model_name": "RealESRGAN_x2.pth"
+    },
+    "class_type": "UpscaleModelLoader",
+    "_meta": {
+      "title": "Load Upscale Model"
+    }
+  },
+  "192": {
+    "inputs": {
+      "images": [
+        "76",
+        0
+      ]
+    },
+    "class_type": "PreviewImage",
+    "_meta": {
+      "title": "Preview Image"
+    }
+  },
+  "197": {
+    "inputs": {
+      "filename_prefix": "Flux2-Klein",
+      "images": [
+        "196:64",
+        0
+      ]
+    },
+    "class_type": "SaveImage",
+    "_meta": {
+      "title": "Save Image"
+    }
+  },
+  "199": {
+    "inputs": {
+      "string_a": "Ta sama kobieta, w tej samej pozie i z tą samą twarzą i układem tła (ale bez tych samych akcesorii, mebli itp) co na zdjęciu referencyjnym. Zmień jedynie styl zdjęcia- dopasuj ubiór kobiety oraz tło do stylu:",
+      "string_b": [
+        "198:211",
+        0
+      ],
+      "delimiter": ""
+    },
+    "class_type": "StringConcatenate",
+    "_meta": {
+      "title": "XX łączniik"
+    }
+  },
+  "203": {
+    "inputs": {
+      "PreviewTextNode_0": "Dominant style: Random\nlocation: Boat sailing water\nstyle: Young blonde woman styled in a scene inspired by 'Photography by Steve McCurry', with appropriate clothing, pose, lighting and detailed thematic background matching the style.",
+      "text": [
+        "198:211",
+        0
+      ]
+    },
+    "class_type": "PreviewTextNode",
+    "_meta": {
+      "title": "Preview Text Node"
+    }
+  },
+  "206": {
+    "inputs": {
+      "unet_name": "Flux-2-Klein-9B-KV-Q4_K_M.gguf"
+    },
+    "class_type": "UnetLoaderGGUF",
+    "_meta": {
+      "title": "Unet Loader (GGUF)"
+    }
+  },
+  "196:43": {
+    "inputs": {
+      "model_name": "RealESRGAN_x2.pth"
+    },
+    "class_type": "UpscaleModelLoader",
+    "_meta": {
+      "title": "Load Upscale Model"
+    }
+  },
+  "196:63": {
+    "inputs": {
+      "model_name": "1x-ITF-SkinDiffDetail-Lite-v1.pth"
+    },
+    "class_type": "UpscaleModelLoader",
+    "_meta": {
+      "title": "Load Upscale Model"
+    }
+  },
+  "195:17": {
+    "inputs": {
+      "face_model": "OlaPL4.safetensors"
+    },
+    "class_type": "ReActorLoadFaceModel",
+    "_meta": {
+      "title": "Load Face Model 🌌 ReActor"
+    }
+  },
+  "198:211": {
+    "inputs": {
+      "seed": 1089223613538165,
+      "prefix": "\n \n",
+      "mode": "manual_main",
+      "main_style": "Claude",
+      "sub_style": "Art",
+      "subsub_style": "Movie Poster",
+      "suffix": "\n",
+      "use_history": true,
+      "use_brand": true,
+      "use_clothing": false,
+      "use_color_grade": false,
+      "use_description": false,
+      "use_hairstyles": false,
+      "use_lighting": false,
+      "use_location": true,
+      "use_lora": false,
+      "use_makeup": false,
+      "use_mood": false,
+      "use_style": true,
+      "use_titles": true,
+      "use_inne": false
+    },
+    "class_type": "RandomOrManual3LevelChoicesRelaxed",
+    "_meta": {
+      "title": "Prompter"
+    }
+  },
+  "195:16": {
+    "inputs": {
+      "enabled": true,
+      "swap_model": "hyperswap_1b_256.onnx",
+      "facedetection": "retinaface_resnet50",
+      "face_restore_model": "GPEN-BFR-512.onnx",
+      "face_restore_visibility": 0.9,
+      "codeformer_weight": 0.5,
+      "detect_gender_input": "no",
+      "detect_gender_source": "no",
+      "input_faces_index": "0",
+      "source_faces_index": "0",
+      "console_log_level": 1,
+      "input_image": [
+        "103",
+        0
+      ],
+      "face_model": [
+        "195:17",
+        0
+      ]
+    },
+    "class_type": "ReActorFaceSwap",
+    "_meta": {
+      "title": "ReActor 🌌 Fast Face Swap"
+    }
+  },
+  "196:62": {
+    "inputs": {
+      "upscale_model": [
+        "196:63",
+        0
+      ],
+      "image": [
+        "195:16",
+        0
+      ]
+    },
+    "class_type": "ImageUpscaleWithModel",
+    "_meta": {
+      "title": "Upscale Image (using Model)"
+    }
+  },
+  "196:64": {
+    "inputs": {
+      "upscale_model": [
+        "196:43",
+        0
+      ],
+      "image": [
+        "196:62",
+        0
+      ]
+    },
+    "class_type": "ImageUpscaleWithModel",
+    "_meta": {
+      "title": "Upscale Image (using Model)"
+    }
+  }
+}

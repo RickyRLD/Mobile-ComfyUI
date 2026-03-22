@@ -1,0 +1,706 @@
+{
+  "76": {
+    "inputs": {
+      "image": "mobile_fffd4550.jpg"
+    },
+    "class_type": "LoadImage",
+    "_meta": {
+      "title": "Load Image"
+    }
+  },
+  "94": {
+    "inputs": {
+      "filename_prefix": "Flux2-Klein",
+      "images": [
+        "189",
+        0
+      ]
+    },
+    "class_type": "SaveImage",
+    "_meta": {
+      "title": "Save Image"
+    }
+  },
+  "99": {
+    "inputs": {
+      "sampler_name": "euler"
+    },
+    "class_type": "KSamplerSelect",
+    "_meta": {
+      "title": "KSamplerSelect"
+    }
+  },
+  "100": {
+    "inputs": {
+      "steps": 8,
+      "width": [
+        "115",
+        0
+      ],
+      "height": [
+        "115",
+        1
+      ]
+    },
+    "class_type": "Flux2Scheduler",
+    "_meta": {
+      "title": "Flux2Scheduler"
+    }
+  },
+  "101": {
+    "inputs": {
+      "cfg": 1,
+      "model": [
+        "105",
+        0
+      ],
+      "positive": [
+        "121",
+        0
+      ],
+      "negative": [
+        "119",
+        0
+      ]
+    },
+    "class_type": "CFGGuider",
+    "_meta": {
+      "title": "CFGGuider"
+    }
+  },
+  "102": {
+    "inputs": {
+      "noise": [
+        "104",
+        0
+      ],
+      "guider": [
+        "101",
+        0
+      ],
+      "sampler": [
+        "99",
+        0
+      ],
+      "sigmas": [
+        "100",
+        0
+      ],
+      "latent_image": [
+        "114",
+        0
+      ]
+    },
+    "class_type": "SamplerCustomAdvanced",
+    "_meta": {
+      "title": "SamplerCustomAdvanced"
+    }
+  },
+  "103": {
+    "inputs": {
+      "samples": [
+        "102",
+        0
+      ],
+      "vae": [
+        "108",
+        0
+      ]
+    },
+    "class_type": "VAEDecode",
+    "_meta": {
+      "title": "VAE Decode"
+    }
+  },
+  "104": {
+    "inputs": {
+      "noise_seed": [
+        "126",
+        0
+      ]
+    },
+    "class_type": "RandomNoise",
+    "_meta": {
+      "title": "RandomNoise"
+    }
+  },
+  "105": {
+    "inputs": {
+      "unet_name": "flux-2-klein-9b-nvfp4.safetensors",
+      "weight_dtype": "default"
+    },
+    "class_type": "UNETLoader",
+    "_meta": {
+      "title": "Load Diffusion Model"
+    }
+  },
+  "106": {
+    "inputs": {
+      "clip_name": "qwen_3_8b_fp8mixed.safetensors",
+      "type": "flux2",
+      "device": "default"
+    },
+    "class_type": "CLIPLoader",
+    "_meta": {
+      "title": "Load CLIP"
+    }
+  },
+  "107": {
+    "inputs": {
+      "text": [
+        "201",
+        0
+      ],
+      "clip": [
+        "106",
+        0
+      ]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "CLIP Text Encode (Prompt)"
+    }
+  },
+  "108": {
+    "inputs": {
+      "vae_name": "flux2-vae.safetensors"
+    },
+    "class_type": "VAELoader",
+    "_meta": {
+      "title": "Load VAE"
+    }
+  },
+  "114": {
+    "inputs": {
+      "width": [
+        "115",
+        0
+      ],
+      "height": [
+        "115",
+        1
+      ],
+      "batch_size": 1
+    },
+    "class_type": "EmptyFlux2LatentImage",
+    "_meta": {
+      "title": "Empty Flux 2 Latent"
+    }
+  },
+  "115": {
+    "inputs": {
+      "image": [
+        "122",
+        0
+      ]
+    },
+    "class_type": "GetImageSize",
+    "_meta": {
+      "title": "Get Image Size"
+    }
+  },
+  "116": {
+    "inputs": {
+      "conditioning": [
+        "140",
+        0
+      ],
+      "latent": [
+        "117",
+        0
+      ]
+    },
+    "class_type": "ReferenceLatent",
+    "_meta": {
+      "title": "ReferenceLatent"
+    }
+  },
+  "117": {
+    "inputs": {
+      "pixels": [
+        "122",
+        0
+      ],
+      "vae": [
+        "108",
+        0
+      ]
+    },
+    "class_type": "VAEEncode",
+    "_meta": {
+      "title": "VAE Encode"
+    }
+  },
+  "118": {
+    "inputs": {
+      "conditioning": [
+        "107",
+        0
+      ],
+      "latent": [
+        "117",
+        0
+      ]
+    },
+    "class_type": "ReferenceLatent",
+    "_meta": {
+      "title": "ReferenceLatent"
+    }
+  },
+  "119": {
+    "inputs": {
+      "conditioning": [
+        "116",
+        0
+      ]
+    },
+    "class_type": "ReferenceLatent",
+    "_meta": {
+      "title": "ReferenceLatent"
+    }
+  },
+  "121": {
+    "inputs": {
+      "conditioning": [
+        "118",
+        0
+      ]
+    },
+    "class_type": "ReferenceLatent",
+    "_meta": {
+      "title": "ReferenceLatent"
+    }
+  },
+  "122": {
+    "inputs": {
+      "aspect_ratio": "original",
+      "proportional_width": 1,
+      "proportional_height": 1,
+      "fit": "letterbox",
+      "method": "lanczos",
+      "round_to_multiple": "8",
+      "scale_to_side": "longest",
+      "scale_to_length": [
+        "182",
+        0
+      ],
+      "background_color": "#000000",
+      "image": [
+        "76",
+        0
+      ]
+    },
+    "class_type": "LayerUtility: ImageScaleByAspectRatio V2",
+    "_meta": {
+      "title": "LayerUtility: ImageScaleByAspectRatio V2"
+    }
+  },
+  "125": {
+    "inputs": {
+      "rgthree_comparer": {
+        "images": [
+          {
+            "name": "A",
+            "selected": true,
+            "url": "/api/view?filename=rgthree.compare._temp_arssp_00027_.png&type=temp&subfolder=&rand=0.960310030759913"
+          },
+          {
+            "name": "B",
+            "selected": true,
+            "url": "/api/view?filename=rgthree.compare._temp_arssp_00028_.png&type=temp&subfolder=&rand=0.8865426266133735"
+          }
+        ]
+      },
+      "image_a": [
+        "76",
+        0
+      ],
+      "image_b": [
+        "103",
+        0
+      ]
+    },
+    "class_type": "Image Comparer (rgthree)",
+    "_meta": {
+      "title": "Image Comparer (rgthree)"
+    }
+  },
+  "126": {
+    "inputs": {
+      "seed": -1
+    },
+    "class_type": "Seed (rgthree)",
+    "_meta": {
+      "title": "Seed (rgthree)"
+    }
+  },
+  "127": {
+    "inputs": {
+      "image1_text": "Foto 1",
+      "image2_text": "Foto 2",
+      "image3_text": "Efekt koncowy",
+      "image4_text": "Foto 3",
+      "reel_height": 1024,
+      "border": 32,
+      "image1": [
+        "76",
+        0
+      ],
+      "image2": [
+        "76",
+        0
+      ],
+      "image3": [
+        "103",
+        0
+      ]
+    },
+    "class_type": "LayerUtility: ImageReel",
+    "_meta": {
+      "title": "LayerUtility: Image Reel"
+    }
+  },
+  "131": {
+    "inputs": {
+      "font_file": "Alibaba-PuHuiTi-Heavy.ttf",
+      "font_size": 40,
+      "border": 32,
+      "color_theme": "light",
+      "reel_1": [
+        "127",
+        0
+      ]
+    },
+    "class_type": "LayerUtility: ImageReelComposit",
+    "_meta": {
+      "title": "LayerUtility: Image Reel Composit"
+    }
+  },
+  "132": {
+    "inputs": {
+      "filename_prefix": "ComfyUI",
+      "images": [
+        "131",
+        0
+      ]
+    },
+    "class_type": "SaveImage",
+    "_meta": {
+      "title": "Save Image"
+    }
+  },
+  "140": {
+    "inputs": {
+      "text": "",
+      "clip": [
+        "106",
+        0
+      ]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "CLIP Text Encode (Prompt)"
+    }
+  },
+  "182": {
+    "inputs": {
+      "value": 1476
+    },
+    "class_type": "Int",
+    "_meta": {
+      "title": "Int"
+    }
+  },
+  "189": {
+    "inputs": {
+      "upscale_model": [
+        "190",
+        0
+      ],
+      "image": [
+        "103",
+        0
+      ]
+    },
+    "class_type": "ImageUpscaleWithModel",
+    "_meta": {
+      "title": "Upscale Image (using Model)"
+    }
+  },
+  "190": {
+    "inputs": {
+      "model_name": "RealESRGAN_x2.pth"
+    },
+    "class_type": "UpscaleModelLoader",
+    "_meta": {
+      "title": "Load Upscale Model"
+    }
+  },
+  "192": {
+    "inputs": {
+      "images": [
+        "76",
+        0
+      ]
+    },
+    "class_type": "PreviewImage",
+    "_meta": {
+      "title": "Preview Image"
+    }
+  },
+  "197": {
+    "inputs": {
+      "filename_prefix": "Flux2-Klein",
+      "images": [
+        "196:64",
+        0
+      ]
+    },
+    "class_type": "SaveImage",
+    "_meta": {
+      "title": "Save Image"
+    }
+  },
+  "199": {
+    "inputs": {
+      "string_a": "The same person, same pose, same face, same background layout as the source image — composition unchanged. Add huge breasts. Apply the following visual style throughout: ",
+      "string_b": [
+        "200",
+        0
+      ],
+      "delimiter": ""
+    },
+    "class_type": "StringConcatenate",
+    "_meta": {
+      "title": "XX łączniik"
+    }
+  },
+  "200": {
+    "inputs": {
+      "PreviewTextNode_0": "",
+      "text": [
+        "198:213",
+        0
+      ]
+    },
+    "class_type": "PreviewTextNode",
+    "_meta": {
+      "title": "Preview Text Node"
+    }
+  },
+  "201": {
+    "inputs": {
+      "PreviewTextNode_1": "",
+      "text": [
+        "199",
+        0
+      ]
+    },
+    "class_type": "PreviewTextNode",
+    "_meta": {
+      "title": "Preview Text Node"
+    }
+  },
+  "196:43": {
+    "inputs": {
+      "model_name": "RealESRGAN_x2.pth"
+    },
+    "class_type": "UpscaleModelLoader",
+    "_meta": {
+      "title": "Load Upscale Model"
+    }
+  },
+  "196:63": {
+    "inputs": {
+      "model_name": "1x-ITF-SkinDiffDetail-Lite-v1.pth"
+    },
+    "class_type": "UpscaleModelLoader",
+    "_meta": {
+      "title": "Load Upscale Model"
+    }
+  },
+  "198:211": {
+    "inputs": {
+      "seed": 850974394114166,
+      "prefix": "Change the style:\n\n \n",
+      "mode": "auto",
+      "main_style": "Claude",
+      "sub_style": "Art",
+      "subsub_style": "Boho",
+      "suffix": ";\n",
+      "use_history": true
+    },
+    "class_type": "RandomOrManual3LevelChoicesRelaxed",
+    "_meta": {
+      "title": "Prompter"
+    }
+  },
+  "195:17": {
+    "inputs": {
+      "face_model": "OlaPL1.safetensors"
+    },
+    "class_type": "ReActorLoadFaceModel",
+    "_meta": {
+      "title": "Load Face Model 🌌 ReActor"
+    }
+  },
+  "198:196": {
+    "inputs": {
+      "text": [
+        "198:211",
+        0
+      ]
+    },
+    "class_type": "ShowText|pysssss",
+    "_meta": {
+      "title": "Wejście"
+    }
+  },
+  "198:197": {
+    "inputs": {
+      "from_translate": "pl",
+      "to_translate": "en",
+      "manual_translate": false,
+      "Manual Trasnlate": "Manual Trasnlate",
+      "text": [
+        "198:196",
+        0
+      ]
+    },
+    "class_type": "GoogleTranslateTextNode",
+    "_meta": {
+      "title": "Tłumacz PL-EN Wejście"
+    }
+  },
+  "198:198": {
+    "inputs": {
+      "string": [
+        "198:197",
+        0
+      ],
+      "regex_pattern": "Lora: .*",
+      "replace": "",
+      "case_insensitive": true,
+      "multiline": false,
+      "dotall": false,
+      "count": 0
+    },
+    "class_type": "RegexReplace",
+    "_meta": {
+      "title": "Kasowanie Lora"
+    }
+  },
+  "198:212": {
+    "inputs": {
+      "string": [
+        "198:198",
+        0
+      ],
+      "regex_pattern": "lora: .*",
+      "replace": "",
+      "case_insensitive": true,
+      "multiline": false,
+      "dotall": false,
+      "count": 0
+    },
+    "class_type": "RegexReplace",
+    "_meta": {
+      "title": "Kasowanie Lora"
+    }
+  },
+  "198:199": {
+    "inputs": {
+      "text": [
+        "198:212",
+        0
+      ]
+    },
+    "class_type": "ShowText|pysssss",
+    "_meta": {
+      "title": "Wejście ENG"
+    }
+  },
+  "198:213": {
+    "inputs": {
+      "prompt": [
+        "198:199",
+        0
+      ],
+      "additional_text": "",
+      "seed": 107535572,
+      "model": "Ollama: style-extractor latest",
+      "custom_instruction": "None",
+      "enable_web_search": false,
+      "list_sources": false,
+      "num_search_results": 1,
+      "keep_context": false,
+      "ollama_chat_mode": false,
+      "compress": "soft",
+      "compression_level": "soft",
+      "console_log": true
+    },
+    "class_type": "polymath_chat",
+    "_meta": {
+      "title": "Prompter"
+    }
+  },
+  "195:16": {
+    "inputs": {
+      "enabled": true,
+      "swap_model": "hyperswap_1b_256.onnx",
+      "facedetection": "retinaface_resnet50",
+      "face_restore_model": "GPEN-BFR-512.onnx",
+      "face_restore_visibility": 0.9,
+      "codeformer_weight": 0.5,
+      "detect_gender_input": "no",
+      "detect_gender_source": "no",
+      "input_faces_index": "0",
+      "source_faces_index": "0",
+      "console_log_level": 1,
+      "input_image": [
+        "103",
+        0
+      ],
+      "face_model": [
+        "195:17",
+        0
+      ]
+    },
+    "class_type": "ReActorFaceSwap",
+    "_meta": {
+      "title": "ReActor 🌌 Fast Face Swap"
+    }
+  },
+  "196:62": {
+    "inputs": {
+      "upscale_model": [
+        "196:63",
+        0
+      ],
+      "image": [
+        "195:16",
+        0
+      ]
+    },
+    "class_type": "ImageUpscaleWithModel",
+    "_meta": {
+      "title": "Upscale Image (using Model)"
+    }
+  },
+  "196:64": {
+    "inputs": {
+      "upscale_model": [
+        "196:43",
+        0
+      ],
+      "image": [
+        "196:62",
+        0
+      ]
+    },
+    "class_type": "ImageUpscaleWithModel",
+    "_meta": {
+      "title": "Upscale Image (using Model)"
+    }
+  }
+}
